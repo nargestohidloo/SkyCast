@@ -1,3 +1,5 @@
+"use client"
+import { log } from "console";
 import {
   Search,
   Sun,
@@ -6,8 +8,10 @@ import {
   UserRound,
   Bell,
 } from "lucide-react";
-
+import { useState } from "react";
 export default function Header() {
+  const [search, setSearch] = useState("")
+  
   return (
     <div className="relative flex h-[60px] w-full items-center justify-between rounded-2xl border border-blue-100 bg-white/90 px-5 shadow-sm">
 
@@ -18,6 +22,10 @@ export default function Header() {
           className="h-full w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
           type="text"
           placeholder="Search city..."
+          value={search}
+          onChange={((e) => {
+            setSearch(e.target.value)
+          })}
         />
       </div>
 
@@ -53,7 +61,7 @@ export default function Header() {
             </p>
           </div>
 
-          <ChevronDown size={17} className="shrink-0 text-blue-800"/>
+          <ChevronDown size={17} className="shrink-0 text-blue-800" />
         </div>
       </div>
     </div>

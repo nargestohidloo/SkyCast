@@ -1,20 +1,34 @@
 import Header from "./Header";
 import SideBar from "./SideBar";
 
-export default function MainLayout({ children }: { children: React.ReactNode }) {
+interface MainLayoutProps {
+    children: React.ReactNode;
+}
+
+export default function MainLayout({ children, }: MainLayoutProps) {
     return (
-        <div className="w-full min-h-screen flex p-3.5 bg-blue-50 *:p-2 *:rounded-[20px]">
-            <div className="w-[300px] h-screen  *:p-2 *:rounded-[20px]">
+        <div className="flex min-h-screen gap-3.5 bg-blue-50 p-3.5 ">
+            {/* Sidebar */}
+
+            <aside className="hidden w-[260px] shrink-0 rounded-[20px] bg-white p-2 lg:block">
                 <SideBar />
-            </div>
-            <div className="w-full">
-                <div className="w-full h-[60px] *:p-2 *:rounded-[20px]">
+            </aside>
+
+            {/* Main Content */}
+
+            <div className="flex min-w-0 flex-1 flex-col gap-3">
+                {/* Header */}
+
+                <header className="h-[60px] shrink-0">
                     <Header />
-                </div>
-                <div className=" w-full *:p-2 *:rounded-[20px] mt-1.5">
+                </header>
+
+                {/* Page Content */}
+
+                <main className="min-w-0 flex-1 border">
                     {children}
-                </div>
+                </main>
             </div>
         </div>
-    )
+    );
 }

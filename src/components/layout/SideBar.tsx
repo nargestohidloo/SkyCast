@@ -7,18 +7,18 @@ import {
     ChartNoAxesCombined,
     Settings,
 } from "lucide-react";
-
-import { useState } from "react";
+import { usePathname  } from "next/navigation";
+import Link from "next/link";
 export default function SideBar() {
     const MyData = [
-        { id: 1, name: "Home", icon: House },
-        { id: 2, name: "Maps", icon: Map },
-        { id: 3, name: "Cities", icon: MapPin },
-        { id: 4, name: "Reports", icon: ChartNoAxesCombined },
-        { id: 5, name: "Settings", icon: Settings },
+        { id: 1, name: "Home", icon: House, href: "/" },
+        { id: 2, name: "Maps", icon: Map, href: "/maps" },
+        { id: 3, name: "Cities", icon: MapPin, href: "/cities" },
+        { id: 4, name: "Reports", icon: ChartNoAxesCombined, href: "/reports" },
+        { id: 5, name: "Settings", icon: Settings, href: "/settings" },
     ]
 
-    const [isOpen, setIsOpen] = useState(1)
+    const pathname = usePathname();
 
 
     return (
@@ -34,7 +34,7 @@ export default function SideBar() {
                 </div>
                 <div className="p-2">
                     <span className="text-[18px] text-blue-900 font-bold">SkyCast</span>
-                    <p className="text-[12px]">Weather for a better day</p>
+                    <p className="text-[12px] text-blue-950">Weather for a better day</p>
                 </div>
             </div>
 
@@ -43,12 +43,12 @@ export default function SideBar() {
                 {MyData.map((val) => {
                     const Icon = val.icon
                     return (
-                        <div key={val.id}
-                            onClick={() => setIsOpen(val.id)}
-                            className={`rounded-[10px] w-full h-full flex items-center p-4 *:p-2 mt-2 ${isOpen === val.id ? "bg-blue-100 text-blue-900" : "bg-white text-gray-600 hover:bg-blue-100/30"} `}>
+                        <Link key={val.id}
+                        href={val.href}
+                            className={`rounded-[10px] w-full h-full flex items-center p-4 *:p-2 mt-2 ${pathname === val.href ? "bg-blue-100 text-blue-900" : "bg-white text-gray-600 hover:bg-blue-100/30"} `}>
                             <span><Icon size={20} /></span>
                             <span className="text-[14px]">{val.name}</span>
-                        </div>
+                        </Link>
                     )
                 })}
             </div>
@@ -60,7 +60,7 @@ export default function SideBar() {
                     src="/images/mountain.jpg"
                     alt="mountain"
                     fill
-                    className="object-cover  object-center"
+                    className="object-cover object-center"
                     // style = ویژگی دستی css 
                     style={{
                         maskImage:
