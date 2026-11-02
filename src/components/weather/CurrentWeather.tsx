@@ -9,17 +9,33 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { CurrentWeather, DailyWeather } from "@/types/types";
-import { getWeather } from "@/services/weather";
-
-
+import { Search } from "lucide-react";
+import { getWeather, searchCities } from "@/services/weather";
 
 export default function CurrentWeather() {
     const [weather, setWeather] = useState<CurrentWeather | null>(null);
     const [daily, setDaily] = useState<DailyWeather | null>(null)
     const [isCityModalOpen, setIsCityModalOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("")
+    const [cityName, setCityName] = useState("Tehran");
+
+    async function handleSearch() {
+        const cities = await searchCities(searchQuery);
+        if (cities.length === 0) {
+            alert("City not found!");
+            return;
+        }
+        const selectedCity = cities[0];
+
+        const data = await getWeather( selectedCity.latitude, selectedCity.longitude);
+
+        setWeather(data.current);
+        setDaily(data.daily);
+        setCityName(selectedCity.name);
+    }
 
     useEffect(() => {
-        getWeather().then((data) => {
+        getWeather(35.667652, 51.403595).then((data) => {
             setWeather(data.current);
             setDaily(data.daily);
             console.log(data.current);
@@ -53,9 +69,8 @@ export default function CurrentWeather() {
             <div className="relative z-10 flex items-center justify-between px-6 pt-5">
                 <div className="flex items-center gap-3">
                     <MapPin size={21} strokeWidth={2} />
-
                     <div>
-                        <h2 className="text-xl">Tehran</h2>
+                        <h2 className="text-xl">{cityName}</h2>
                         <p className="mt-1 text-xs text-white/90">
                             Saturday, 1 June 2024
                         </p>
@@ -63,13 +78,31 @@ export default function CurrentWeather() {
                 </div>
 
                 <button
-                    onClick={(() => {
-                        setIsCityModalOpen(!isCityModalOpen);
-                    })} className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20">
+                    onClick={() => setIsCityModalOpen(!isCityModalOpen)}
+                    className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20"
+                >
                     <MapPin size={15} />
                     Change city
                 </button>
-                
+
+                {isCityModalOpen && (
+                    <div className="text-[12px] flex">
+                        <input
+                            className="outline-none"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            placeholder="Search city..."
+                        />
+                        <button
+                            onClick={handleSearch}
+                            className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500 text-white shadow-sm transition-all duration-200 hover:bg-blue-600 hover:shadow-md active:scale-90"
+                            aria-label="Search"
+                        >
+                            <Search size={16} strokeWidth={2.2} />
+                        </button>
+                    </div>
+                )}
+
             </div>
 
             {/* Temperature */}
