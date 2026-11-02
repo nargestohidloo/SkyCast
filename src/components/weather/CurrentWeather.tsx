@@ -1,16 +1,78 @@
 "use client"
+
+
 import {
     MapPin,
     Sun,
+    Moon,
+    Cloud,
+    CloudSun,
+    CloudFog,
+    CloudDrizzle,
+    CloudRain,
+    CloudSnow,
+    CloudLightning,
     Wind,
     Droplets,
     Sunrise,
     Sunset,
+    Search,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { CurrentWeather, DailyWeather } from "@/types/types";
-import { Search } from "lucide-react";
 import { getWeather, searchCities } from "@/services/weather";
+
+
+function getWeatherIcon(code: number, isDay: number) {
+    switch (code) {
+        case 0:
+            return isDay ? Sun : Moon;
+
+        case 1:
+        case 2:
+            return isDay ? CloudSun : Cloud;
+
+        case 3:
+            return Cloud;
+
+        case 45:
+        case 48:
+            return CloudFog;
+
+        case 51:
+        case 53:
+        case 55:
+        case 56:
+        case 57:
+            return CloudDrizzle;
+
+        case 61:
+        case 63:
+        case 65:
+        case 66:
+        case 67:
+        case 80:
+        case 81:
+        case 82:
+            return CloudRain;
+
+        case 71:
+        case 73:
+        case 75:
+        case 77:
+        case 85:
+        case 86:
+            return CloudSnow;
+
+        case 95:
+        case 96:
+        case 99:
+            return CloudLightning;
+
+        default:
+            return Cloud;
+    }
+}
 
 export default function CurrentWeather() {
     const [weather, setWeather] = useState<CurrentWeather | null>(null);
@@ -18,6 +80,7 @@ export default function CurrentWeather() {
     const [isCityModalOpen, setIsCityModalOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("")
     const [cityName, setCityName] = useState("Tehran");
+
 
     async function handleSearch() {
         const cities = await searchCities(searchQuery);
@@ -27,7 +90,7 @@ export default function CurrentWeather() {
         }
         const selectedCity = cities[0];
 
-        const data = await getWeather( selectedCity.latitude, selectedCity.longitude);
+        const data = await getWeather(selectedCity.latitude, selectedCity.longitude);
 
         setWeather(data.current);
         setDaily(data.daily);
@@ -49,6 +112,7 @@ export default function CurrentWeather() {
         { id: 3, name: "Sunrise", title: ` ${daily?.sunrise[0].split("T")[1]}`, icon: Sunrise },
         { id: 4, name: "Sunset", title: `${daily?.sunset[0].split("T")[1]}`, icon: Sunset },
     ];
+
     if (!weather || !daily) {
         return (
             <div className="flex h-full w-full items-center justify-center">
@@ -62,6 +126,10 @@ export default function CurrentWeather() {
             </div>
         );
     }
+    const WeatherIcon = getWeatherIcon(
+        weather?.weather_code,
+        weather?.is_day
+    );
     return (
         <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-900 text-white shadow-sm">
 
@@ -72,7 +140,7 @@ export default function CurrentWeather() {
                     <div>
                         <h2 className="text-xl">{cityName}</h2>
                         <p className="mt-1 text-xs text-white/90">
-                            Saturday, 1 June 2024
+                            {daily.time[0]}
                         </p>
                     </div>
                 </div>
