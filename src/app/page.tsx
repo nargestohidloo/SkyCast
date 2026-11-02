@@ -6,8 +6,8 @@ export default function page() {
     <div>
       <MainLayout>
         <div className="min-h-screen border w-full">
-          <div className="border h-[300px] w-full *:w-1/2 *:h-full *:border flex ">
-            <div>
+          <div className="border h-[320px] w-full *:h-full *:border flex ">
+            <div className="w-[500px]">
               <CurrentWeather/>
             </div>
             <div></div>

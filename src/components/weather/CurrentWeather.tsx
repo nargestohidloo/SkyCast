@@ -1,52 +1,136 @@
-import { MapPin, Sun } from "lucide-react";
-export default function CurrentWeather() {
-    return (
-        <div className="w-full h-full border rounded-2xl bg-blue-300">
-            <div className="flex items-center p-4 text-[14px] justify-between">
-                <div className="flex items-center justify-between w-full">
-                    {/* City Information */}
-                    <div className="flex items-center gap-3">
-                        <MapPin size={26} className="text-white" />
+"use client"
+import {
+    MapPin,
+    Sun,
+    Wind,
+    Droplets,
+    Sunrise,
+    Sunset,
+} from "lucide-react";
+import { useEffect, useState } from "react";
+import type { CurrentWeather, DailyWeather } from "@/types/types";
+import { getWeather } from "@/services/weather";
 
-                        <div className="flex flex-col gap-1">
-                            <span className="text-xl font-semibold text-white">
-                                Tehran
+
+
+export default function CurrentWeather() {
+    const [weather, setWeather] = useState<CurrentWeather | null>(null);
+    const [daily, setDaily] = useState<DailyWeather | null>(null)
+    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
+
+    useEffect(() => {
+        getWeather().then((data) => {
+            setWeather(data.current);
+            setDaily(data.daily);
+            console.log(data.current);
+        })
+
+    }, [])
+
+    const MyData = [
+        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
+        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} % `, icon: Droplets },
+        { id: 3, name: "Sunrise", title: ` ${daily?.sunrise[0].split("T")[1]}`, icon: Sunrise },
+        { id: 4, name: "Sunset", title: `${daily?.sunset[0].split("T")[1]}`, icon: Sunset },
+    ];
+    if (!weather || !daily) {
+        return (
+            <div className="flex h-full w-full items-center justify-center">
+                <div className="flex flex-col items-center gap-4">
+                    <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600" />
+
+                    <p className="text-sm text-gray-500">
+                        Loading weather...
+                    </p>
+                </div>
+            </div>
+        );
+    }
+    return (
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-900 text-white shadow-sm">
+
+            {/* Header */}
+            <div className="relative z-10 flex items-center justify-between px-6 pt-5">
+                <div className="flex items-center gap-3">
+                    <MapPin size={21} strokeWidth={2} />
+
+                    <div>
+                        <h2 className="text-xl">Tehran</h2>
+                        <p className="mt-1 text-xs text-white/90">
+                            Saturday, 1 June 2024
+                        </p>
+                    </div>
+                </div>
+
+                <button
+                    onClick={(() => {
+                        setIsCityModalOpen(!isCityModalOpen);
+                    })} className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20">
+                    <MapPin size={15} />
+                    Change city
+                </button>
+                
+            </div>
+
+            {/* Temperature */}
+            <div className="relative z-10 flex flex-1 items-center gap-5 px-8 py-4">
+
+                <Sun
+                    size={82}
+                    strokeWidth={1.5}
+                    className="shrink-0 text-yellow-300"
+                />
+
+                <div className="flex flex-col">
+                    <h1 className="text-6xl leading-none tracking-tight">
+                        {weather.temperature_2m}°C
+                    </h1>
+
+
+
+                    <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-white/90">
+                        <span>Feels like {weather.apparent_temperature}° </span>
+                        <span className="text-white/50">·</span>
+                        <span>H: {daily.temperature_2m_max[0]}°</span>
+                        <span>L: {daily.temperature_2m_min[0]}°</span>
+                    </div>
+                </div>
+            </div>
+
+            {/* Weather Details */}
+            <div className="relative z-10 mt-auto grid grid-cols-4 border-t border-white/20 bg-blue-950/20 px-3 py-3">
+
+                {MyData.map((val) => {
+                    const Icon = val.icon;
+
+                    return (
+                        <div
+                            key={val.id}
+                            className="flex items-center justify-center gap-2 px-1"
+                        >
+                            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
+                                <Icon size={18} strokeWidth={1.7} />
                             </span>
 
-                            <p className="text-xs text-white/70">
-                                Saturday, 1 June 2024
-                            </p>
+                            <div className="min-w-0">
+                                <p className="text-[10px] text-white/80">
+                                    {val.name}
+                                </p>
+
+                                <p className="whitespace-nowrap text-xs ">
+                                    {val.title}
+                                </p>
+
+                                {val.des && (
+                                    <p className="text-[10px] text-white/80">
+                                        {val.des}
+                                    </p>
+                                )}
+                            </div>
                         </div>
-                    </div>
-
-                    {/* Change City */}
-                    <button className="flex items-center gap-2 rounded-xl border border-white/30 bg-white/10 px-3 py-2 text-xs text-white transition hover:bg-white/20">
-                        <MapPin size={16} />
-                        <span>Change city</span>
-                    </button>
-                </div>
+                    );
+                })}
             </div>
-            {/* Weather Information */}
-            <div className="flex items-center justify-between px-8 py-5 text-white">
-                <div className="flex flex-col gap-2">
-                    <span className="text-sm text-white/80">Current Temperature</span>
-
-                    <h2 className="text-7xl font-light leading-none tracking-tight">
-                        24°
-                    </h2>
-
-                    <p className="text-base font-medium">Partly Cloudy</p>
-
-                    <div className="flex items-center gap-3 text-sm text-white/80">
-                        <span>H: 26°</span>
-                        <span className="h-1 w-1 rounded-full bg-white/60" />
-                        <span>L: 18°</span>
-                    </div>
-                </div>
-
-                <Sun size={100} strokeWidth={1.2} className="text-white/90" />
-            </div>
-            <div></div>
         </div>
-    )
+    );
 }
