@@ -1,117 +1,20 @@
-"use client"
+"use client";
+import { MapPin, Wind, Droplets, Sunrise, Sunset, Search, } from "lucide-react";
 
-import {
-    MapPin,
-    Sun,
-    Moon,
-    Cloud,
-    CloudSun,
-    CloudFog,
-    CloudDrizzle,
-    CloudRain,
-    CloudSnow,
-    CloudLightning,
-    Wind,
-    Droplets,
-    Sunrise,
-    Sunset,
-    Search,
-} from "lucide-react";
-import { useEffect, useState } from "react";
-import type { CurrentWeather, DailyWeather } from "@/types/types";
-import { getWeather, searchCities } from "@/services/weather";
-
-
-function getWeatherIcon(code: number, isDay: number) {
-    switch (code) {
-        case 0:
-            return isDay ? Sun : Moon;
-
-        case 1:
-        case 2:
-            return isDay ? CloudSun : Cloud;
-
-        case 3:
-            return Cloud;
-
-        case 45:
-        case 48:
-            return CloudFog;
-
-        case 51:
-        case 53:
-        case 55:
-        case 56:
-        case 57:
-            return CloudDrizzle;
-
-        case 61:
-        case 63:
-        case 65:
-        case 66:
-        case 67:
-        case 80:
-        case 81:
-        case 82:
-            return CloudRain;
-
-        case 71:
-        case 73:
-        case 75:
-        case 77:
-        case 85:
-        case 86:
-            return CloudSnow;
-
-        case 95:
-        case 96:
-        case 99:
-            return CloudLightning;
-
-        default:
-            return Cloud;
-    }
-}
-
-export default function CurrentWeather() {
-    const [weather, setWeather] = useState<CurrentWeather | null>(null);
-    const [daily, setDaily] = useState<DailyWeather | null>(null)
-    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("")
-    const [cityName, setCityName] = useState("Tehran");
-
-
-    async function handleSearch() {
-        const cities = await searchCities(searchQuery);
-        if (cities.length === 0) {
-            alert("City not found!");
-            return;
-        }
-        const selectedCity = cities[0];
-
-        const data = await getWeather(selectedCity.latitude, selectedCity.longitude);
-
-        setWeather(data.current);
-        setDaily(data.daily);
-        setCityName(selectedCity.name);
-    }
-
-    useEffect(() => {
-        getWeather(35.667652, 51.403595).then((data) => {
-            setWeather(data.current);
-            setDaily(data.daily);
-            console.log(data.current);
-        })
-
-    }, [])
+import type { CurrentWeatherProps, } from "@/types/types";
+// مشخص کردن اطلاعاتی که از page.tsx دریافت می‌کنیم
+export default function CurrentWeather(
+    { weather, daily, cityName, isCityModalOpen, setIsCityModalOpen, searchQuery, setSearchQuery, handleSearch, Icon
+    }: CurrentWeatherProps) {
 
     const MyData = [
-        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
-        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} % `, icon: Droplets },
-        { id: 3, name: "Sunrise", title: ` ${daily?.sunrise[0].split("T")[1]}`, icon: Sunrise },
-        { id: 4, name: "Sunset", title: `${daily?.sunset[0].split("T")[1]}`, icon: Sunset },
+        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind, },
+        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} %`, icon: Droplets, },
+        { id: 3, name: "Sunrise", title: `${daily?.sunrise[0]?.split("T")[1]}`, icon: Sunrise, },
+        { id: 4, name: "Sunset", title: `${daily?.sunset[0]?.split("T")[1]}`, icon: Sunset, },
     ];
 
+    // نمایش Loading تا زمان دریافت اطلاعات
     if (!weather || !daily) {
         return (
             <div className="flex h-full w-full items-center justify-center">
@@ -125,19 +28,20 @@ export default function CurrentWeather() {
             </div>
         );
     }
-    const WeatherIcon = getWeatherIcon(
-        weather?.weather_code,
-        weather?.is_day
-    );
+
+
+
     return (
         <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-900 text-white shadow-sm">
-
             {/* Header */}
             <div className="relative z-10 flex items-center justify-between px-6 pt-5">
+
                 <div className="flex items-center gap-3">
                     <MapPin size={21} strokeWidth={2} />
+
                     <div>
                         <h2 className="text-xl">{cityName}</h2>
+
                         <p className="mt-1 text-xs text-white/90">
                             {daily.time[0]}
                         </p>
@@ -145,21 +49,22 @@ export default function CurrentWeather() {
                 </div>
 
                 <button
-                    onClick={() => setIsCityModalOpen(!isCityModalOpen)}
-                    className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20"
+                    onClick={() => setIsCityModalOpen?.(!isCityModalOpen)}  
+                     className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20"
                 >
                     <MapPin size={15} />
                     Change city
                 </button>
 
                 {isCityModalOpen && (
-                    <div className="text-[12px] flex">
+                    <div className="flex text-[12px]">
                         <input
                             className="outline-none"
                             value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
+                            onChange={(e) => setSearchQuery?.(e.target.value)}
                             placeholder="Search city..."
                         />
+
                         <button
                             onClick={handleSearch}
                             className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500 text-white shadow-sm transition-all duration-200 hover:bg-blue-600 hover:shadow-md active:scale-90"
@@ -175,24 +80,27 @@ export default function CurrentWeather() {
             {/* Temperature */}
             <div className="relative z-10 flex flex-1 items-center gap-5 px-8 py-4">
 
-                <Sun
-                    size={82}
-                    strokeWidth={1.5}
-                    className="shrink-0 text-yellow-300"
-                />
+                {Icon && <Icon size={82} />}
 
                 <div className="flex flex-col">
                     <h1 className="text-6xl leading-none tracking-tight">
                         {weather.temperature_2m}°C
                     </h1>
 
-
-
                     <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-white/90">
-                        <span>Feels like {weather.apparent_temperature}° </span>
+                        <span>
+                            Feels like {weather.apparent_temperature}°
+                        </span>
+
                         <span className="text-white/50">·</span>
-                        <span>H: {daily.temperature_2m_max[0]}°</span>
-                        <span>L: {daily.temperature_2m_min[0]}°</span>
+
+                        <span>
+                            H: {daily.temperature_2m_max[0]}°
+                        </span>
+
+                        <span>
+                            L: {daily.temperature_2m_min[0]}°
+                        </span>
                     </div>
                 </div>
             </div>
@@ -217,7 +125,7 @@ export default function CurrentWeather() {
                                     {val.name}
                                 </p>
 
-                                <p className="whitespace-nowrap text-xs ">
+                                <p className="whitespace-nowrap text-xs">
                                     {val.title}
                                 </p>
 
@@ -230,6 +138,7 @@ export default function CurrentWeather() {
                         </div>
                     );
                 })}
+
             </div>
         </div>
     );
