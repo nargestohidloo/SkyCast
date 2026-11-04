@@ -1,5 +1,5 @@
-"use client"
 
+"use client";
 
 import {
     MapPin,
@@ -18,11 +18,14 @@ import {
     Sunset,
     Search,
 } from "lucide-react";
-import { useEffect, useState } from "react";
-import type { CurrentWeather, DailyWeather } from "@/types/types";
-import { getWeather, searchCities } from "@/services/weather";
 
+import type {
+    CurrentWeatherProps,
+    CurrentWeather as CurrentWeatherType,
+    DailyWeather,
+} from "@/types/types";
 
+// تعیین آیکون بر اساس وضعیت آب‌وهوا
 function getWeatherIcon(code: number, isDay: number) {
     switch (code) {
         case 0:
@@ -74,45 +77,28 @@ function getWeatherIcon(code: number, isDay: number) {
     }
 }
 
-export default function CurrentWeather() {
-    const [weather, setWeather] = useState<CurrentWeather | null>(null);
-    const [daily, setDaily] = useState<DailyWeather | null>(null)
-    const [isCityModalOpen, setIsCityModalOpen] = useState(false);
-    const [searchQuery, setSearchQuery] = useState("")
-    const [cityName, setCityName] = useState("Tehran");
+// مشخص کردن اطلاعاتی که از page.tsx دریافت می‌کنیم
 
 
-    async function handleSearch() {
-        const cities = await searchCities(searchQuery);
-        if (cities.length === 0) {
-            alert("City not found!");
-            return;
-        }
-        const selectedCity = cities[0];
-
-        const data = await getWeather(selectedCity.latitude, selectedCity.longitude);
-
-        setWeather(data.current);
-        setDaily(data.daily);
-        setCityName(selectedCity.name);
-    }
-
-    useEffect(() => {
-        getWeather(35.667652, 51.403595).then((data) => {
-            setWeather(data.current);
-            setDaily(data.daily);
-            console.log(data.current);
-        })
-
-    }, [])
+export default function CurrentWeather({
+    weather,
+    daily,
+    cityName,
+    isCityModalOpen,
+    setIsCityModalOpen,
+    searchQuery,
+    setSearchQuery,
+    handleSearch,
+}: CurrentWeatherProps) {
 
     const MyData = [
-        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
-        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} % `, icon: Droplets },
-        { id: 3, name: "Sunrise", title: ` ${daily?.sunrise[0].split("T")[1]}`, icon: Sunrise },
-        { id: 4, name: "Sunset", title: `${daily?.sunset[0].split("T")[1]}`, icon: Sunset },
+        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind, },
+        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} %`, icon: Droplets, },
+        { id: 3, name: "Sunrise", title: `${daily?.sunrise[0]?.split("T")[1]}`, icon: Sunrise, },
+        { id: 4, name: "Sunset", title: `${daily?.sunset[0]?.split("T")[1]}`, icon: Sunset, },
     ];
 
+    // نمایش Loading تا زمان دریافت اطلاعات
     if (!weather || !daily) {
         return (
             <div className="flex h-full w-full items-center justify-center">
@@ -126,19 +112,24 @@ export default function CurrentWeather() {
             </div>
         );
     }
-    const WeatherIcon = getWeatherIcon(
-        weather?.weather_code,
-        weather?.is_day
+
+    const Icon = getWeatherIcon(
+        weather.weather_code,
+        weather.is_day
     );
+
     return (
         <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-900 text-white shadow-sm">
 
             {/* Header */}
             <div className="relative z-10 flex items-center justify-between px-6 pt-5">
+
                 <div className="flex items-center gap-3">
                     <MapPin size={21} strokeWidth={2} />
+
                     <div>
                         <h2 className="text-xl">{cityName}</h2>
+
                         <p className="mt-1 text-xs text-white/90">
                             {daily.time[0]}
                         </p>
@@ -154,13 +145,14 @@ export default function CurrentWeather() {
                 </button>
 
                 {isCityModalOpen && (
-                    <div className="text-[12px] flex">
+                    <div className="flex text-[12px]">
                         <input
                             className="outline-none"
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
                             placeholder="Search city..."
                         />
+
                         <button
                             onClick={handleSearch}
                             className="flex h-7 w-7 items-center justify-center rounded-lg bg-blue-500 text-white shadow-sm transition-all duration-200 hover:bg-blue-600 hover:shadow-md active:scale-90"
@@ -176,24 +168,27 @@ export default function CurrentWeather() {
             {/* Temperature */}
             <div className="relative z-10 flex flex-1 items-center gap-5 px-8 py-4">
 
-                <Sun
-                    size={82}
-                    strokeWidth={1.5}
-                    className="shrink-0 text-yellow-300"
-                />
+                <Icon size={82} />
 
                 <div className="flex flex-col">
                     <h1 className="text-6xl leading-none tracking-tight">
                         {weather.temperature_2m}°C
                     </h1>
 
-
-
                     <div className="mt-3 flex flex-wrap items-center gap-3 text-sm text-white/90">
-                        <span>Feels like {weather.apparent_temperature}° </span>
+                        <span>
+                            Feels like {weather.apparent_temperature}°
+                        </span>
+
                         <span className="text-white/50">·</span>
-                        <span>H: {daily.temperature_2m_max[0]}°</span>
-                        <span>L: {daily.temperature_2m_min[0]}°</span>
+
+                        <span>
+                            H: {daily.temperature_2m_max[0]}°
+                        </span>
+
+                        <span>
+                            L: {daily.temperature_2m_min[0]}°
+                        </span>
                     </div>
                 </div>
             </div>
@@ -218,7 +213,7 @@ export default function CurrentWeather() {
                                     {val.name}
                                 </p>
 
-                                <p className="whitespace-nowrap text-xs ">
+                                <p className="whitespace-nowrap text-xs">
                                     {val.title}
                                 </p>
 
@@ -231,6 +226,7 @@ export default function CurrentWeather() {
                         </div>
                     );
                 })}
+
             </div>
         </div>
     );
