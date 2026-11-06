@@ -7,7 +7,7 @@ import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, Cl
 import type { LucideIcon } from "lucide-react";
 
 // انتخاب آیکون متناسب با وضعیت آب‌وهوا
-function getWeatherIcon(code: number, isDay: number): LucideIcon {
+function getWeatherIcon(code: number, isDay?: number): LucideIcon {
     switch (code) {
         case 0:
             return isDay ? Sun : Moon;
@@ -74,6 +74,7 @@ export function useWeather() {
     // وضعیت مودال جست‌وجو
     const [isCityModalOpen, setIsCityModalOpen] = useState(false);
 
+
     // دریافت اطلاعات اولیه آب‌وهوا
     useEffect(() => {
         getWeather(35.667652, 51.403595).then((data) => {
@@ -116,6 +117,10 @@ export function useWeather() {
         weather.is_day
     );
 
+    const DailyIcon = daily.weather_code.map((val) => {
+        return getWeatherIcon(val)
+    })
+
     return {
         weather,
         daily,
@@ -125,6 +130,7 @@ export function useWeather() {
         searchQuery,
         setSearchQuery,
         handleSearch,
-        Icon: WeatherIcon,
+        WeatherIcon,
+        DailyIcon
     };
 }

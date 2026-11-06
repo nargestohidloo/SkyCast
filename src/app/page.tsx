@@ -19,7 +19,8 @@ export default function Page() {
     searchQuery,
     setSearchQuery,
     handleSearch,
-    Icon,
+    WeatherIcon,
+    DailyIcon
   } = useWeather();
   return (
     // ساختار اصلی صفحه و Layout
@@ -40,7 +41,7 @@ export default function Page() {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               handleSearch={handleSearch}
-              Icon={Icon}
+              WeatherIcon={WeatherIcon}
             />
           </div>
 
@@ -50,10 +51,13 @@ export default function Page() {
 
         {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
         <div className="flex h-[300px] w-full border *:border">
-
           {/* کامپوننت پیش‌بینی */}
-          <div className="w-[500px]">
-            <Forecast />
+          <div className="w-[750px]">
+            <Forecast
+              weather={weather}
+              daily={daily}
+              DailyIcon={DailyIcon}
+            />
           </div>
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}

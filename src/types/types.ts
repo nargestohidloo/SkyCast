@@ -45,16 +45,26 @@ export interface City {
 export interface CurrentWeatherProps {
   weather: CurrentWeather | null;
   daily: DailyWeather | null;
-  cityName: string | undefined;
-  isCityModalOpen: boolean | undefined;
-  setIsCityModalOpen: ((value: boolean) => void) | undefined;
-  searchQuery: string | undefined;
-  setSearchQuery: ((value: string) => void) | undefined;
-  handleSearch: (() => void) | undefined;
-  Icon: LucideIcon | null | undefined;
+  cityName?: string | undefined;
+  isCityModalOpen?: boolean | undefined;
+  setIsCityModalOpen?: ((value: boolean) => void) | undefined;
+  searchQuery?: string | undefined;
+  setSearchQuery?: ((value: string) => void) | undefined;
+  handleSearch?: (() => void) | undefined;
+  WeatherIcon?: LucideIcon | undefined;
+  DailyIcon?: LucideIcon[] | undefined;
 }
 
 export type WeatherIconProps = {
   code: number;
   isDay: number;
 };
+
+export interface DailyWeather {
+  time: string[];
+  weather_code: number[];
+  temperature_2m_max: number[];
+  temperature_2m_min: number[];
+  sunrise: string[];
+  sunset: string[];
+}

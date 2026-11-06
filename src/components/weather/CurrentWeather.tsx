@@ -4,7 +4,7 @@ import { MapPin, Wind, Droplets, Sunrise, Sunset, Search, } from "lucide-react";
 import type { CurrentWeatherProps, } from "@/types/types";
 // مشخص کردن اطلاعاتی که از page.tsx دریافت می‌کنیم
 export default function CurrentWeather(
-    { weather, daily, cityName, isCityModalOpen, setIsCityModalOpen, searchQuery, setSearchQuery, handleSearch, Icon
+    { weather, daily, cityName, isCityModalOpen, setIsCityModalOpen, searchQuery, setSearchQuery, handleSearch, WeatherIcon
     }: CurrentWeatherProps) {
 
     const MyData = [
@@ -28,11 +28,12 @@ export default function CurrentWeather(
             </div>
         );
     }
-
+    
+    console.log("hello world");
 
 
     return (
-        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-900 text-white shadow-sm">
+        <div className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl bg-gradient-to-br bg-blue-950 text-white shadow-sm">
             {/* Header */}
             <div className="relative z-10 flex items-center justify-between px-6 pt-5">
 
@@ -49,8 +50,8 @@ export default function CurrentWeather(
                 </div>
 
                 <button
-                    onClick={() => setIsCityModalOpen?.(!isCityModalOpen)}  
-                     className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20"
+                    onClick={() => setIsCityModalOpen?.(!isCityModalOpen)}
+                    className="flex items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-2 text-xs transition hover:bg-white/20"
                 >
                     <MapPin size={15} />
                     Change city
@@ -79,8 +80,9 @@ export default function CurrentWeather(
 
             {/* Temperature */}
             <div className="relative z-10 flex flex-1 items-center gap-5 px-8 py-4">
+                
 
-                {Icon && <Icon size={82} />}
+                {WeatherIcon && <WeatherIcon size={82} />}
 
                 <div className="flex flex-col">
                     <h1 className="text-6xl leading-none tracking-tight">
@@ -116,6 +118,7 @@ export default function CurrentWeather(
                             key={val.id}
                             className="flex items-center justify-center gap-2 px-1"
                         >
+                            
                             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/15">
                                 <Icon size={18} strokeWidth={1.7} />
                             </span>
