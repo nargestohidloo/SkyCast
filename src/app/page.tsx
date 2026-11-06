@@ -28,10 +28,10 @@ export default function Page() {
       <div className="min-h-screen w-full border">
 
         {/* ردیف اول: وضعیت فعلی آب‌وهوا */}
-        <div className="flex h-[320px] w-full border *:h-full *:border">
+        <div className="flex h-[320px] gap-2 w-full border *:h-full *:border">
 
           {/* کامپوننت وضعیت فعلی */}
-          <div className="w-[500px]">
+          <div className="w-[800px]">
             <CurrentWeather
               weather={weather}
               daily={daily}
@@ -46,19 +46,21 @@ export default function Page() {
           </div>
 
           {/* فضای سایر بخش‌های ردیف اول */}
-          <div></div>
-        </div>
-
-        {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
-        <div className="flex h-[300px] w-full border *:border">
-          {/* کامپوننت پیش‌بینی */}
-          <div className="w-[750px]">
+          <div className="flex h-[300px] w-full border justify-end *:border">
+            <div className="w-[700px]">
             <Forecast
               weather={weather}
               daily={daily}
               DailyIcon={DailyIcon}
             />
           </div>
+          </div>
+        </div>
+
+        {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
+        <div className="flex h-[300px] w-full border *:border">
+          {/* کامپوننت پیش‌بینی */}
+          <div></div>
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}
           <div></div>
