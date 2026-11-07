@@ -7,15 +7,16 @@ import { useState } from "react";
 export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherProps) {
 
     const MyData = [
-        { id: 1, name: daily ? new Date(daily.time[0]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[0]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[0], temperture: daily?.temperature_2m_max[0], temp: "" },
-        { id: 2, name: daily ? new Date(daily.time[1]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[1]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[1], temperture: daily?.temperature_2m_max[1], temp: "" },
-        { id: 3, name: daily ? new Date(daily.time[2]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[2]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[2], temperture: daily?.temperature_2m_max[2], temp: "" },
-        { id: 4, name: daily ? new Date(daily.time[3]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[3]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[3], temperture: daily?.temperature_2m_max[3], temp: "" },
-        { id: 5, name: daily ? new Date(daily.time[4]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[4]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[4], temperture: daily?.temperature_2m_max[4], temp: "" },
-        { id: 6, name: daily ? new Date(daily.time[5]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[5]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[5], temperture: daily?.temperature_2m_max[5], temp: "" },
-        { id: 7, name: daily ? new Date(daily.time[6]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[6]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[6], temperture: daily?.temperature_2m_max[6], temp: "" },
+        { id: 1, name: daily ? new Date(daily.time[0]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[0]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[0], temperture: daily?.temperature_2m_max[0], temp: daily?.temperature_2m_min[0] },
+        { id: 2, name: daily ? new Date(daily.time[1]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[1]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[1], temperture: daily?.temperature_2m_max[1], temp: daily?.temperature_2m_min[1] },
+        { id: 3, name: daily ? new Date(daily.time[2]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[2]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[2], temperture: daily?.temperature_2m_max[2], temp: daily?.temperature_2m_min[2] },
+        { id: 4, name: daily ? new Date(daily.time[3]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[3]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[3], temperture: daily?.temperature_2m_max[3], temp: daily?.temperature_2m_min[3] },
+        { id: 5, name: daily ? new Date(daily.time[4]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[4]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[4], temperture: daily?.temperature_2m_max[4], temp: daily?.temperature_2m_min[4] },
+        { id: 6, name: daily ? new Date(daily.time[5]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[5]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[5], temperture: daily?.temperature_2m_max[5], temp: daily?.temperature_2m_min[5] },
+        { id: 7, name: daily ? new Date(daily.time[6]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[6]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[6], temperture: daily?.temperature_2m_max[6], temp: daily?.temperature_2m_min[6] },
     ];
     const [isopen, setIsopen] = useState(1)
+    const [tempUnit, setTempUnit] = useState<"C" | "F">("C");
 
     return (
         <div className="w-full h-full rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_8px_30px_rgba(30,64,175,0.06)] sm:p-6">
@@ -37,12 +38,24 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                         </p>
                     </div>
                 </div>
-
                 <div className="flex items-center gap-1 rounded-full bg-slate-100 p-1">
-                    <button className="rounded-full bg-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-sm">
+                    <button
+                        onClick={() => setTempUnit("C")}
+                        className={`rounded-full px-4 py-2 text-xs font-semibold transition ${tempUnit === "C"
+                            ? "bg-blue-600 text-white shadow-sm"
+                            : "text-slate-500 hover:bg-white hover:text-blue-600"
+                            }`}
+                    >
                         °C
                     </button>
-                    <button className="rounded-full px-4 py-2 text-xs font-semibold text-slate-500 transition hover:bg-white hover:text-blue-600">
+
+                    <button
+                        onClick={() => setTempUnit("F")}
+                        className={`rounded-full px-4 py-2 text-xs font-semibold transition ${tempUnit === "F"
+                            ? "bg-blue-600 text-white shadow-sm"
+                            : "text-slate-500 hover:bg-white hover:text-blue-600"
+                            }`}
+                    >
                         °F
                     </button>
                 </div>
@@ -73,8 +86,8 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                                 </span>
 
                                 <span className={`text-xs ${isopen === val.id
-                                        ? "text-blue-100"
-                                        : "text-slate-400"
+                                    ? "text-blue-100"
+                                    : "text-slate-400"
                                     }`}>
                                     {val.date}
                                 </span>
@@ -96,10 +109,10 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                                 </span>
 
                                 <span className={`text-[11px] font-medium ${isopen === val.id
-                                        ? "text-blue-100"
-                                        : "text-slate-400"
+                                    ? "text-blue-100"
+                                    : "text-slate-400"
                                     }`}>
-                                    Max 
+                                    {val.temp}°
                                 </span>
                             </div>
 
