@@ -2,12 +2,12 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getWeather, searchCities } from "@/services/weather";
-import type { CurrentWeather, DailyWeather } from "../types/types";
+import type { CurrentWeather, DailyWeather, MyCity } from "../types/types";
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Moon, Sun, } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 // انتخاب آیکون متناسب با وضعیت آب‌وهوا
- export function getWeatherIcon(code: number, isDay?: number): LucideIcon {
+export function getWeatherIcon(code: number, isDay?: number): LucideIcon {
     switch (code) {
         case 0:
             return isDay ? Sun : Moon;
@@ -83,6 +83,7 @@ export function useWeather() {
         });
     }, []);
 
+
     // جست‌وجوی شهر و دریافت آب‌وهوای آن
     async function handleSearch() {
         if (!searchQuery.trim()) return;
@@ -103,11 +104,14 @@ export function useWeather() {
         setIsCityModalOpen(false);
     }
 
+  
+
     // تا زمان دریافت اطلاعات، مقدارهای اولیه برگردانده می‌شوند
     if (!weather || !daily) {
         return {
             weather: null,
             daily: null,
+            
         };
     }
 
@@ -116,6 +120,16 @@ export function useWeather() {
         weather.weather_code,
         weather.is_day
     );
+      async function handleSelectCity(city: MyCity) {
+        const data = await getWeather(
+            city.latitude,
+            city.longitude
+        );
+
+        setWeather(data.current);
+        setDaily(data.daily);
+        setCityName(city.name);
+    }
 
     const DailyIcon = daily.weather_code.map((val) => {
         return getWeatherIcon(val)
@@ -131,6 +145,7 @@ export function useWeather() {
         setSearchQuery,
         handleSearch,
         WeatherIcon,
-        DailyIcon
+        DailyIcon,
+        handleSelectCity
     };
 }

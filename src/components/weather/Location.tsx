@@ -1,11 +1,11 @@
 import { getWeatherIcon } from "@/hooks/useWeather";
 import { getWeather } from "@/services/weather";
-import { WeatherData } from "@/types/types";
+import { LocationProps, MyCity, WeatherData } from "@/types/types";
 import { MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
-export default function Location() {
+export default function Location({ onSelectCity }: LocationProps) {
     const [weather, setWeather] = useState<WeatherData[]>([]);
-    
+
     const DailyIcon = weather.map((val) => {
         return getWeatherIcon(val.daily.weather_code[0]);
     });
@@ -35,7 +35,7 @@ export default function Location() {
                     <MapPin size={19} className="text-blue-600" />
 
                     <h2 className="text-sm font-semibold text-slate-900">
-                        Locations
+                        Popular cities
                     </h2>
                 </div>
 
@@ -60,7 +60,7 @@ export default function Location() {
 
                             <div className="flex items-center gap-3">
                                 <span className="text-base">
-                                   {Icon && <Icon className="text-blue-500" />}
+                                    {Icon && <Icon className="text-blue-500" />}
                                 </span>
 
                                 <span className="text-xs font-semibold text-slate-800">
@@ -70,6 +70,11 @@ export default function Location() {
                                 <span className="text-xs text-slate-400">
                                     {val.minTemp}°
                                 </span>
+                                <button
+                                    onClick={() => onSelectCity && (onSelectCity(val))}
+                                    className="text-xs text-slate-400 hover:text-blue-500 transition">
+                                    see more
+                                </button>
 
                             </div>
                         </div>

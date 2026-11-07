@@ -53,6 +53,7 @@ export interface CurrentWeatherProps {
   handleSearch?: (() => void) | undefined;
   WeatherIcon?: LucideIcon | undefined;
   DailyIcon?: LucideIcon[] | undefined;
+  handleSelectCity?: ((city: MyCity) => void) | undefined;
 }
 
 export type WeatherIconProps = {
@@ -78,4 +79,19 @@ export type WeatherData = {
     temperature_2m_max: number[];
     temperature_2m_min: number[];
   };
+};
+
+export type MyCity = {
+  id: number;
+  name: string;
+  latitude: number;
+  longitude: number;
+  maxTemp?: number;
+  minTemp?: number;
+  icon?: LucideIcon;
+};
+
+
+export type LocationProps = {
+  onSelectCity?: ((city: MyCity) => void) | undefined;
 };

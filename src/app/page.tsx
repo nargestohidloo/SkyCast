@@ -21,7 +21,8 @@ export default function Page() {
     setSearchQuery,
     handleSearch,
     WeatherIcon,
-    DailyIcon
+    DailyIcon,
+    handleSelectCity,
   } = useWeather();
   return (
     // ساختار اصلی صفحه و Layout
@@ -61,8 +62,8 @@ export default function Page() {
         <div className="flex h-[300px] w-full  mt-3  ">
           {/* کامپوننت پیش‌بینی */}
           <div className=" w-[510px]">
-            <Location
-
+            <Location 
+            onSelectCity={handleSelectCity}
             />
           </div>
 
