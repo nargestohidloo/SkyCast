@@ -5,6 +5,7 @@ import { getWeather, searchCities } from "@/services/weather";
 import type { CurrentWeather, DailyWeather, MyCity } from "../types/types";
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Moon, Sun, } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { log } from "node:console";
 
 // انتخاب آیکون متناسب با وضعیت آب‌وهوا
 export function getWeatherIcon(code: number, isDay?: number): LucideIcon {
@@ -86,6 +87,7 @@ export function useWeather() {
 
     // جست‌وجوی شهر و دریافت آب‌وهوای آن
     async function handleSearch() {
+        
         if (!searchQuery.trim()) return;
         const cities = await searchCities(searchQuery);
         if (cities.length === 0) {
@@ -93,6 +95,7 @@ export function useWeather() {
             return;
         }
         const selectedCity = cities[0];
+        console.log("Search coordinates:", selectedCity.latitude, selectedCity.longitude);
         const data = await getWeather(
             selectedCity.latitude,
             selectedCity.longitude

@@ -5,6 +5,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import CurrentWeather from "@/components/weather/CurrentWeather";
 import Forecast from "@/components/weather/Forecast";
 import Location from "@/components/weather/Location";
+import PrecipitationLevels from "@/components/weather/PrecipitationLevels";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
@@ -59,16 +60,20 @@ export default function Page() {
         </div>
 
         {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
-        <div className="flex h-[300px] w-full  mt-3  ">
+        <div className="flex h-[300px] w-full  mt-3 gap-10">
           {/* کامپوننت پیش‌بینی */}
           <div className=" w-[510px]">
-            <Location 
-            onSelectCity={handleSelectCity}
+            <Location
+              onSelectCity={handleSelectCity}
             />
           </div>
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}
-          <div></div>
+          <div className="flex h-[300px] w-[480px] border  justify-end ">
+            <PrecipitationLevels
+              daily={daily}
+            />
+          </div>
           <div></div>
         </div>
 

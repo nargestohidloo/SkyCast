@@ -68,6 +68,7 @@ export interface DailyWeather {
   temperature_2m_min: number[];
   sunrise: string[];
   sunset: string[];
+  precipitation_sum?: number[];
 }
 
 
@@ -78,6 +79,7 @@ export type WeatherData = {
     temperature_2m: number;
     temperature_2m_max: number[];
     temperature_2m_min: number[];
+    is_day: number;
   };
 };
 
@@ -90,7 +92,6 @@ export type MyCity = {
   minTemp?: number;
   icon?: LucideIcon;
 };
-
 
 export type LocationProps = {
   onSelectCity?: ((city: MyCity) => void) | undefined;
