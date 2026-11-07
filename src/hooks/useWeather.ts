@@ -7,7 +7,7 @@ import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, Cl
 import type { LucideIcon } from "lucide-react";
 
 // انتخاب آیکون متناسب با وضعیت آب‌وهوا
-function getWeatherIcon(code: number, isDay?: number): LucideIcon {
+ export function getWeatherIcon(code: number, isDay?: number): LucideIcon {
     switch (code) {
         case 0:
             return isDay ? Sun : Moon;

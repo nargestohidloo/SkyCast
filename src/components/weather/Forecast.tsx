@@ -17,6 +17,18 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
     ];
     const [isopen, setIsopen] = useState(1)
     const [tempUnit, setTempUnit] = useState<"C" | "F">("C");
+    
+    function convertTemp(val: number | undefined) {
+        if (val === undefined) {
+            return "--";
+        }
+
+        if (tempUnit === "C") {
+            return Math.round(val);
+        }
+
+        return Math.round(val * 1.8 + 32);
+    }
 
     return (
         <div className="w-full h-full rounded-3xl border border-slate-200/80 bg-white p-5 shadow-[0_8px_30px_rgba(30,64,175,0.06)] sm:p-6">
@@ -41,9 +53,10 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                 <div className="flex items-center gap-1 rounded-full bg-slate-100 p-1">
                     <button
                         onClick={() => setTempUnit("C")}
-                        className={`rounded-full px-4 py-2 text-xs font-semibold transition ${tempUnit === "C"
-                            ? "bg-blue-600 text-white shadow-sm"
-                            : "text-slate-500 hover:bg-white hover:text-blue-600"
+                        className={`rounded-full px-4 py-2 text-xs font-semibold transition
+                             ${tempUnit === "C"
+                                ? "bg-blue-600 text-white shadow-sm"
+                                : "text-slate-500 hover:bg-white hover:text-blue-600"
                             }`}
                     >
                         °C
@@ -51,9 +64,10 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
 
                     <button
                         onClick={() => setTempUnit("F")}
-                        className={`rounded-full px-4 py-2 text-xs font-semibold transition ${tempUnit === "F"
-                            ? "bg-blue-600 text-white shadow-sm"
-                            : "text-slate-500 hover:bg-white hover:text-blue-600"
+                        className={`rounded-full px-4 py-2 text-xs font-semibold transition 
+                            ${tempUnit === "F"
+                                ? "bg-blue-600 text-white shadow-sm"
+                                : "text-slate-500 hover:bg-white hover:text-blue-600"
                             }`}
                     >
                         °F
@@ -105,14 +119,14 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                             {/* Temperature */}
                             <div className="flex flex-col items-center gap-1">
                                 <span className="text-2xl font-bold tracking-tight">
-                                    {val.temperture}°
+                                    {convertTemp(val.temperture)}°
                                 </span>
 
                                 <span className={`text-[11px] font-medium ${isopen === val.id
                                     ? "text-blue-100"
                                     : "text-slate-400"
                                     }`}>
-                                    {val.temp}°
+                                    {convertTemp(val.temp)}°
                                 </span>
                             </div>
 

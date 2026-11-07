@@ -4,6 +4,7 @@
 import MainLayout from "@/components/layout/MainLayout";
 import CurrentWeather from "@/components/weather/CurrentWeather";
 import Forecast from "@/components/weather/Forecast";
+import Location from "@/components/weather/Location";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
@@ -25,13 +26,12 @@ export default function Page() {
   return (
     // ساختار اصلی صفحه و Layout
     <MainLayout>
-      <div className="min-h-screen w-full border">
-
+      <div className="min-h-screen w-full  ">
         {/* ردیف اول: وضعیت فعلی آب‌وهوا */}
-        <div className="flex h-[320px] gap-2 w-full border *:h-full *:border">
+        <div className="flex h-[320px] gap-2 w-full *:h-full ">
 
           {/* کامپوننت وضعیت فعلی */}
-          <div className="w-[800px]">
+          <div className="w-[860px]">
             <CurrentWeather
               weather={weather}
               daily={daily}
@@ -46,21 +46,25 @@ export default function Page() {
           </div>
 
           {/* فضای سایر بخش‌های ردیف اول */}
-          <div className="flex h-[300px] w-full border justify-end *:border">
-            <div className="w-[700px]">
-            <Forecast
-              weather={weather}
-              daily={daily}
-              DailyIcon={DailyIcon}
-            />
-          </div>
+          <div className="flex h-[300px] w-full  justify-end ">
+            <div className="w-[740px]">
+              <Forecast
+                weather={weather}
+                daily={daily}
+                DailyIcon={DailyIcon}
+              />
+            </div>
           </div>
         </div>
 
         {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
-        <div className="flex h-[300px] w-full border *:border">
+        <div className="flex h-[300px] w-full  mt-3  ">
           {/* کامپوننت پیش‌بینی */}
-          <div></div>
+          <div className=" w-[510px]">
+            <Location
+
+            />
+          </div>
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}
           <div></div>

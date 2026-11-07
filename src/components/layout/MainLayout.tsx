@@ -7,7 +7,7 @@ interface MainLayoutProps {
 
 export default function MainLayout({ children, }: MainLayoutProps) {
     return (
-        <div className="flex min-h-screen gap-3.5 bg-blue-50 p-3.5 ">
+        <div className="flex min-h-screen gap-3.5 bg-[#EAF2FF] p-3.5 ">
             {/* Sidebar */}
 
             <aside className="hidden w-[260px] shrink-0 rounded-[20px] bg-white p-2 lg:block">
@@ -25,7 +25,7 @@ export default function MainLayout({ children, }: MainLayoutProps) {
 
                 {/* Page Content */}
 
-                <main className="min-w-0 flex-1 border">
+                <main className="min-w-0 flex-1 ">
                     {children}
                 </main>
             </div>

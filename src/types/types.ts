@@ -68,3 +68,14 @@ export interface DailyWeather {
   sunrise: string[];
   sunset: string[];
 }
+
+
+
+export type WeatherData = {
+  daily: DailyWeather;
+  current: {
+    temperature_2m: number;
+    temperature_2m_max: number[];
+    temperature_2m_min: number[];
+  };
+};
