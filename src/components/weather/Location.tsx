@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 export default function Location({ onSelectCity }: LocationProps) {
     const [weather, setWeather] = useState<WeatherData[]>([]);
 
-   const DailyIcon = weather.map((val) => {
-    return getWeatherIcon(
-        val.daily.weather_code[0],
-        val.current.is_day
-    );
-});
+    const DailyIcon = weather.map((val) => {
+        return getWeatherIcon(
+            val.daily.weather_code[0],
+            val.current.is_day
+        );
+    });
     const MyData = [
         { id: 1, name: "Tehran", icon: DailyIcon?.[0], latitude: 35.6892, longitude: 51.3890, maxTemp: weather[0]?.daily?.temperature_2m_max[0], minTemp: weather[0]?.daily?.temperature_2m_min[0], },
         { id: 2, name: "London", icon: DailyIcon?.[1], latitude: 51.5072, longitude: -0.1276, maxTemp: weather[1]?.daily?.temperature_2m_max[0], minTemp: weather[1]?.daily?.temperature_2m_min[0], },
         { id: 3, name: "Dubai", icon: DailyIcon?.[2], latitude: 25.2048, longitude: 55.2708, maxTemp: weather[2]?.daily?.temperature_2m_max[0], minTemp: weather[2]?.daily?.temperature_2m_min[0], },
-        { id: 4, name: "Seoul", icon: DailyIcon?.[3], latitude: 37.5665 , longitude: 126.9780, maxTemp: weather[3]?.daily?.temperature_2m_max[0], minTemp: weather[3]?.daily?.temperature_2m_min[0], },
+        { id: 4, name: "Seoul", icon: DailyIcon?.[3], latitude: 37.5665, longitude: 126.9780, maxTemp: weather[3]?.daily?.temperature_2m_max[0], minTemp: weather[3]?.daily?.temperature_2m_min[0], },
     ];
     useEffect(() => {
         Promise.all(

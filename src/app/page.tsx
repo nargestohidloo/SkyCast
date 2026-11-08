@@ -69,7 +69,7 @@ export default function Page() {
           </div>
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}
-          <div className="flex h-[300px] w-[480px] border  justify-end ">
+          <div className="flex h-[300px] w-[480px] justify-end ">
             <PrecipitationLevels
               daily={daily}
             />

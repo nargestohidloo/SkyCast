@@ -128,6 +128,7 @@ export function useWeather() {
             city.latitude,
             city.longitude
         );
+        
 
         setWeather(data.current);
         setDaily(data.daily);
@@ -135,7 +136,7 @@ export function useWeather() {
     }
 
     const DailyIcon = daily.weather_code.map((val) => {
-        return getWeatherIcon(val)
+        return getWeatherIcon(val,1)
     })
 
     return {
