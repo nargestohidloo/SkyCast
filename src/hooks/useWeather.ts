@@ -5,7 +5,6 @@ import { getWeather, searchCities } from "@/services/weather";
 import type { CurrentWeather, DailyWeather, MyCity } from "../types/types";
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Moon, Sun, } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { log } from "node:console";
 
 // انتخاب آیکون متناسب با وضعیت آب‌وهوا
 export function getWeatherIcon(code: number, isDay?: number): LucideIcon {
@@ -107,7 +106,6 @@ export function useWeather() {
         setIsCityModalOpen(false);
     }
 
-  
 
     // تا زمان دریافت اطلاعات، مقدارهای اولیه برگردانده می‌شوند
     if (!weather || !daily) {

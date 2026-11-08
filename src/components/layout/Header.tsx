@@ -1,5 +1,5 @@
 "use client"
-import { log } from "console";
+import { HeaderProps } from "@/types/types";
 import {
   Search,
   Sun,
@@ -8,24 +8,30 @@ import {
   UserRound,
   Bell,
 } from "lucide-react";
-import { useState } from "react";
-export default function Header() {
-  const [search, setSearch] = useState("")
-  
+export default function Header({ searchQuery, setSearchQuery, handleSearch, }: HeaderProps) {
+
   return (
     <div className="relative flex h-[60px] w-full items-center justify-between rounded-2xl border border-blue-100 bg-white/90 px-5 shadow-sm">
 
-      <div className="flex h-[42px] w-[400px] max-w-[45%] items-center gap-3 rounded-full border border-blue-100 bg-blue-50/50 px-4 transition-all duration-200 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-100/70">
-        <Search size={19} className="shrink-0 text-blue-800" />
+      <div className="flex h-[42px] w-[800px] max-w-[45%] items-center gap-3 rounded-full border border-blue-100 bg-blue-50/50 px-4 transition-all duration-200 focus-within:border-blue-400 focus-within:ring-4 focus-within:ring-blue-100/70">
+
+        <button
+          type="button"
+          onClick={() => handleSearch?.()}
+          className="shrink-0 text-blue-800 transition hover:text-blue-500 "
+        >
+          <Search size={19} />
+        </button>
 
         <input
-          className="h-full w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+          className="outline-none"
+          value={searchQuery ?? ""}
+          onChange={(e) => setSearchQuery?.(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleSearch?.();
+          }}
           type="text"
           placeholder="Search city..."
-          value={search}
-          onChange={((e) => {
-            setSearch(e.target.value)
-          })}
         />
       </div>
 

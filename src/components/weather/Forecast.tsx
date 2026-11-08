@@ -17,7 +17,7 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
     ];
     const [isopen, setIsopen] = useState(1)
     const [tempUnit, setTempUnit] = useState<"C" | "F">("C");
-    
+
     function convertTemp(val: number | undefined) {
         if (val === undefined) {
             return "--";
@@ -133,9 +133,7 @@ export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherPr
                         </button>
                     );
                 })}
-
             </div>
         </div>
     );
-
 }

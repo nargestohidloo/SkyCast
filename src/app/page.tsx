@@ -6,6 +6,7 @@ import CurrentWeather from "@/components/weather/CurrentWeather";
 import Forecast from "@/components/weather/Forecast";
 import Location from "@/components/weather/Location";
 import PrecipitationLevels from "@/components/weather/PrecipitationLevels";
+import WeatherCard from "@/components/weather/WeatherCard";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
@@ -27,7 +28,11 @@ export default function Page() {
   } = useWeather();
   return (
     // ساختار اصلی صفحه و Layout
-    <MainLayout>
+    <MainLayout
+      searchQuery={searchQuery}
+      setSearchQuery={setSearchQuery}
+      handleSearch={handleSearch}
+    >
       <div className="min-h-screen w-full  ">
         {/* ردیف اول: وضعیت فعلی آب‌وهوا */}
         <div className="flex h-[320px] gap-2 w-full *:h-full ">
@@ -74,7 +79,12 @@ export default function Page() {
               daily={daily}
             />
           </div>
-          <div></div>
+          <div className=" w-[220px]">
+            <WeatherCard
+              daily={daily}
+
+            />
+          </div>
         </div>
 
         {/* فضای بخش‌های بعدی داشبورد */}

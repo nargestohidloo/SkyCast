@@ -1,5 +1,7 @@
+
 import type { DailyWeather } from "@/types/types";
 import { Droplets } from "lucide-react";
+
 type PrecipitationLevelsProps = {
     daily: DailyWeather | null;
 };
@@ -11,8 +13,7 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
         new Date(val).toLocaleDateString("en-US", {
             weekday: "short",
         })
-    ); console.log("my day" + day);
-
+    );
 
     const Mydata = [
         { id: 1, day: day?.[0], date: "", precipitation: precipitation?.[0] },
@@ -22,9 +23,10 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
         { id: 5, day: day?.[4], date: "", precipitation: precipitation?.[4] },
         { id: 6, day: day?.[5], date: "", precipitation: precipitation?.[5] },
         { id: 7, day: day?.[6], date: "", precipitation: precipitation?.[6] },
-    ]
+    ];
+
     return (
-        <div className="rounded-2xl bg-white p-6 shadow-sm w-full">
+        <div className="w-full rounded-2xl bg-white p-6 shadow-sm">
 
             {/* Header */}
             <div className="mb-8 flex items-center gap-3">
@@ -43,40 +45,69 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
             </div>
 
             {/* Chart */}
-            <div className="flex h-42 items-end justify-between gap-3">
+            <div className="flex items-end gap-3">
 
-                {Mydata.map((val) => {
-                    const height = val.precipitation && (
-                        (val.precipitation * 100) / 30
-                    );
+                {/* Percentage Labels */}
+                <div className="flex h-35 flex-col justify-between text-[10px] text-slate-500 mb-5">
+                    <span>100</span>
+                    <span>75</span>
+                    <span>50</span>
+                    <span>25</span>
+                    <span>0</span>
+                </div>
 
-                    return (
-                        <div
-                            key={val.id}
-                            className="group flex h-full flex-1 flex-col items-center justify-end gap-3"
-                        >
-                            {/* Value */}
-                            <span className="text-xs font-semibold text-slate-600 transition-colors group-hover:text-blue-600">
-                                {val.precipitation}
-                                <span className="ml-0.5 text-[10px] text-slate-400">mm</span>
-                            </span>
+                {/* Bars */}
+                <div className="flex flex-1 flex-col gap-3">
 
-                            {/* Bar */}
-                            <div className="flex h-32 w-full max-w-10 items-end justify-center overflow-hidden rounded-xl bg-blue-50/80">
-                                <div
-                                    className="w-full h-0 transition-discrete rounded-xs bg-gradient-to-t from-blue-600 to-sky-700 shadow-sm transition-all duration-500 group-hover:from-blue-700 group-hover:to-sky-300"
-                                    style={{ height: `${height}%` }}
-                                />
+                    {/* Values */}
+                    <div className="flex justify-between gap-3">
+                        {Mydata.map((val) => (
+                            <div key={val.id} className="flex flex-1 justify-center text-xs font-semibold text-slate-600">
+                                {val.precipitation ?? 0}
+                                <span className="ml-0.5 text-[10px] text-slate-400">
+                                    mm
+                                </span>
                             </div>
+                        ))}
+                    </div>
 
-                            {/* Day */}
-                            <span className="text-xs font-medium text-slate-500 transition-colors group-hover:text-blue-600">
-                                {val.day}
+                    {/* Bar Area */}
+                    <div className="flex h-32 items-end justify-between gap-3">
+                        
+                        {Mydata.map((val) => {
+                            const height = val.precipitation
+                                ? Math.min((val.precipitation * 100) / 30, 100)
+                                : 0;
+
+                            return (
+                                <div
+                                    key={val.id}
+                                    className="flex h-full flex-1 items-end justify-center"
+                                >
+                                    <div className="flex h-full w-full max-w-10 items-end justify-center overflow-hidden rounded-xl bg-blue-50/80">
+                                        <div
+                                            className="w-full rounded-xs bg-gradient-to-t from-blue-600 to-sky-700 shadow-sm transition-all duration-1000 ease-out"
+                                            style={{ height: `${height}%` }}
+                                        />
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    {/* Days */}
+                    <div className="flex justify-between gap-3">
+                        {Mydata.map((val) => (
+                            <span
+                                key={val.id}
+                                className="flex-1 text-center text-xs font-medium text-slate-500"
+                            >
+                                {val.day ?? "--"}
                             </span>
-                        </div>
-                    );
-                })}
+                        ))}
+                    </div>
 
+                </div>
             </div>
         </div>
     );

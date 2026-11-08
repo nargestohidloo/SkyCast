@@ -1,11 +1,8 @@
+import { MainLayoutProps } from "@/types/types";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
-interface MainLayoutProps {
-    children: React.ReactNode;
-}
-
-export default function MainLayout({ children, }: MainLayoutProps) {
+export default function MainLayout({ children, searchQuery, setSearchQuery, handleSearch, }: MainLayoutProps) {
     return (
         <div className="flex min-h-screen gap-3.5 bg-[#EAF2FF] p-3.5 ">
             {/* Sidebar */}
@@ -19,10 +16,11 @@ export default function MainLayout({ children, }: MainLayoutProps) {
             <div className="flex min-w-0 flex-1 flex-col gap-3">
                 {/* Header */}
 
-                <header className="h-[60px] shrink-0">
-                    <Header />
-                </header>
-
+                <Header
+                    searchQuery={searchQuery}
+                    setSearchQuery={setSearchQuery}
+                    handleSearch={handleSearch}
+                />
                 {/* Page Content */}
 
                 <main className="min-w-0 flex-1 ">

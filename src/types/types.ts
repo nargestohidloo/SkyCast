@@ -96,3 +96,20 @@ export type MyCity = {
 export type LocationProps = {
   onSelectCity?: ((city: MyCity) => void) | undefined;
 };
+
+export interface MainLayoutProps {
+    children: React.ReactNode | undefined;
+    searchQuery: string | undefined;
+    setSearchQuery: ((value: string) => void) | undefined;
+    handleSearch: (() => void) | undefined;
+}
+
+export interface HeaderProps {
+    searchQuery: string | undefined;
+    setSearchQuery: ((value: string) => void) | undefined;
+    handleSearch: (() => void) | undefined;
+}
+
+export interface WeatherCardProps {
+    daily: DailyWeather | null;
+}
