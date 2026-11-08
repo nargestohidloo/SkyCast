@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getWeather, searchCities } from "@/services/weather";
-import type { CurrentWeather, DailyWeather, MyCity } from "../types/types";
+import type { CurrentWeather, DailyWeather, HourlyWeather, MyCity } from "../types/types";
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Moon, Sun, } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -73,6 +73,8 @@ export function useWeather() {
 
     // وضعیت مودال جست‌وجو
     const [isCityModalOpen, setIsCityModalOpen] = useState(false);
+    // برای نمودار
+    const [hourly, setHourly] = useState<HourlyWeather | null>(null);
 
 
     // دریافت اطلاعات اولیه آب‌وهوا
@@ -80,13 +82,14 @@ export function useWeather() {
         getWeather(35.667652, 51.403595).then((data) => {
             setWeather(data.current);
             setDaily(data.daily);
+            setHourly(data.hourly);
         });
     }, []);
 
 
     // جست‌وجوی شهر و دریافت آب‌وهوای آن
     async function handleSearch() {
-        
+
         if (!searchQuery.trim()) return;
         const cities = await searchCities(searchQuery);
         if (cities.length === 0) {
@@ -101,6 +104,7 @@ export function useWeather() {
         );
         setWeather(data.current);
         setDaily(data.daily);
+        setHourly(data.hourly);
         setCityName(selectedCity.name);
         // بستن مودال بعد از جست‌وجوی موفق
         setIsCityModalOpen(false);
@@ -108,11 +112,11 @@ export function useWeather() {
 
 
     // تا زمان دریافت اطلاعات، مقدارهای اولیه برگردانده می‌شوند
-    if (!weather || !daily) {
+    if (!weather || !daily || !hourly) {
         return {
             weather: null,
             daily: null,
-            
+            hourly: null
         };
     }
 
@@ -121,20 +125,21 @@ export function useWeather() {
         weather.weather_code,
         weather.is_day
     );
-      async function handleSelectCity(city: MyCity) {
+    async function handleSelectCity(city: MyCity) {
         const data = await getWeather(
             city.latitude,
             city.longitude
         );
-        
+
 
         setWeather(data.current);
         setDaily(data.daily);
+        setHourly(data.hourly);
         setCityName(city.name);
     }
 
     const DailyIcon = daily.weather_code.map((val) => {
-        return getWeatherIcon(val,1)
+        return getWeatherIcon(val, 1)
     })
 
     return {
@@ -148,6 +153,7 @@ export function useWeather() {
         handleSearch,
         WeatherIcon,
         DailyIcon,
-        handleSelectCity
+        handleSelectCity,
+        hourly
     };
 }

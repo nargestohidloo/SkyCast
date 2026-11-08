@@ -113,3 +113,16 @@ export interface HeaderProps {
 export interface WeatherCardProps {
     daily: DailyWeather | null;
 }
+
+export interface WeatherCardProps {
+    daily: DailyWeather | null ;
+    
+}
+export interface HourlyWeather {
+    time: string[];
+    temperature_2m: number[];
+}
+
+export interface TempertureTrendsProps {
+    hourly: HourlyWeather | null;
+}

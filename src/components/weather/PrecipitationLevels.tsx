@@ -8,8 +8,8 @@ type PrecipitationLevelsProps = {
 
 export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps) {
     const precipitation = daily?.precipitation_sum;
-
-    const day = daily?.time.map((val) =>
+    
+     const day = daily?.time.map((val) =>
         new Date(val).toLocaleDateString("en-US", {
             weekday: "short",
         })
