@@ -31,8 +31,7 @@ export default function Header({ searchQuery, setSearchQuery, handleSearch, }: H
             if (e.key === "Enter") handleSearch?.();
           }}
           type="text"
-          placeholder="Search city..."
-        />
+          placeholder="Search city or country..." />
       </div>
 
       <div className="ml-auto flex shrink-0 items-center gap-4 ">
