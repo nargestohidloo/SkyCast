@@ -90,9 +90,12 @@ export default function Page() {
         </div>
 
         {/* فضای بخش‌های بعدی داشبورد */}
-        <div className="border w-full h-[340px] mt-4">
+        <div className=" w-full h-[340px] mt-4">
           <div className="w-1/2 h-full">
-            <TempertureTrends hourly={hourly} />
+            <TempertureTrends
+              hourly={hourly}
+              daily={daily}
+            />
           </div>
           <div></div>
         </div>

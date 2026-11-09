@@ -7,13 +7,18 @@ type PrecipitationLevelsProps = {
 };
 
 export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps) {
+
+
     const precipitation = daily?.precipitation_sum;
-    
-     const day = daily?.time.map((val) =>
+
+    const day = daily?.time.map((val) =>
         new Date(val).toLocaleDateString("en-US", {
             weekday: "short",
         })
     );
+
+
+
 
     const Mydata = [
         { id: 1, day: day?.[0], date: "", precipitation: precipitation?.[0] },
@@ -73,7 +78,7 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
 
                     {/* Bar Area */}
                     <div className="flex h-32 items-end justify-between gap-3">
-                        
+
                         {Mydata.map((val) => {
                             const height = val.precipitation
                                 ? Math.min((val.precipitation * 100) / 30, 100)

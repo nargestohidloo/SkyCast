@@ -4,26 +4,40 @@
 import type { TempertureTrendsProps } from "@/types/types";
 
 import {
-    AreaChart,
-    Area,
-    XAxis,
-    YAxis,
-    Tooltip,
-    CartesianGrid,
-    ResponsiveContainer,
+    AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer,
 } from "recharts";
 
 import { Thermometer } from "lucide-react";
+import { useState } from "react";
 
-export default function TempertureTrends({ hourly }: TempertureTrendsProps) {
+export default function TempertureTrends({ hourly, daily }: TempertureTrendsProps) {
 
     const chartData = hourly?.time.slice(0, 24).map((val, index) => ({
         time: new Date(val).toLocaleTimeString("en-US", {
             hour: "numeric",
             hour12: true,
         }),
-        temperature: hourly.temperature_2m[index],
+        temperature: hourly?.temperature_2m[index],
     })) ?? [];
+    // خروجی :
+    //     const chartData = [
+    //     { time: "12 AM", temperature: 8 },
+    //     { time: "1 AM", temperature: 7 },
+    //     { time: "2 AM", temperature: 9 },
+    // ];
+
+    const weekday = daily?.time.map((val, index) => {
+        return {
+            time: new Date(val).toLocaleDateString("en-US", {
+                weekday: "short",
+
+            }),
+            temperature: daily?.temperature_2m_max[index],
+        }
+    }) ?? [];
+    const [selectedPeriod, setSelectedPeriod] = useState("today");
+    const activeData = selectedPeriod === "today" ? chartData : weekday;
+
 
     return (
         <div className="h-full w-full rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
@@ -41,17 +55,20 @@ export default function TempertureTrends({ hourly }: TempertureTrendsProps) {
 
                 <div className="flex items-center rounded-full bg-blue-50 p-1">
 
-                    <button className="rounded-full bg-blue-500 px-5 py-2 text-sm text-white shadow-sm">
+                    <button className={`px-5 py-2 text-sm text-blue-70 
+                    ${selectedPeriod === "today" ? "rounded-full bg-blue-600 text-white shadow-sm"
+                            : "text-blue-700"}`}
+                        onClick={() => setSelectedPeriod("today")}>
                         Today
                     </button>
 
-                    <button className="px-5 py-2 text-sm text-blue-700">
+                    <button className={`px-5 py-2 text-sm text-blue-70 
+                    ${selectedPeriod === "7days" ? "rounded-full bg-blue-600 text-white shadow-sm"
+                            : "text-blue-700"}`}
+                        onClick={() => setSelectedPeriod("7days")}>
                         7 Days
                     </button>
 
-                    <button className="px-5 py-2 text-sm text-blue-700">
-                        30 Days
-                    </button>
 
                 </div>
             </div>
@@ -62,7 +79,7 @@ export default function TempertureTrends({ hourly }: TempertureTrendsProps) {
                 <ResponsiveContainer width="100%" height="100%">
 
                     <AreaChart
-                        data={chartData}
+                        data={activeData}
                         margin={{ top: 10, right: 5, left: 0, bottom: 0 }}
                     >
 
@@ -95,11 +112,11 @@ export default function TempertureTrends({ hourly }: TempertureTrendsProps) {
 
                         <XAxis
                             dataKey="time"
-                            interval={2}
+                            interval={selectedPeriod === "today" ? 2 : 0}
                             tick={{ fontSize: 10, fill: "#31558A" }}
                             axisLine={false}
                             tickLine={false}
-                            tickMargin={12}
+                            tickMargin={11}
                         />
 
                         <YAxis
@@ -117,10 +134,10 @@ export default function TempertureTrends({ hourly }: TempertureTrendsProps) {
                                 backgroundColor: "#245A9D",
                                 border: "none",
                                 borderRadius: "10px",
-                                color: "#fff",
                                 fontSize: "12px",
                             }}
                             labelStyle={{ color: "#fff" }}
+                            itemStyle={{ color: "#fff" }}
                             formatter={(value) => [`${value}°C`, "Temperature"]}
                         />
 

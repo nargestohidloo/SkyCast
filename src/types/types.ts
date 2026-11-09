@@ -125,4 +125,5 @@ export interface HourlyWeather {
 
 export interface TempertureTrendsProps {
     hourly: HourlyWeather | null;
+    daily :DailyWeather  | null;
 }
