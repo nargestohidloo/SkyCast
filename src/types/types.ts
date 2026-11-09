@@ -127,3 +127,12 @@ export interface TempertureTrendsProps {
     hourly: HourlyWeather | null;
     daily :DailyWeather  | null;
 }
+
+export interface AirQuality {
+    european_aqi: number;
+    uv_index: number;
+}
+
+export interface WeatherQualityProps {
+    airQuality: AirQuality | null;
+}

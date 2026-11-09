@@ -1,4 +1,5 @@
 import type { City } from "@/types/types";
+import { error } from "console";
 
 export async function searchCities(city: string): Promise<City[]> {
     const response = await fetch(
@@ -20,6 +21,18 @@ export async function getWeather(latitude: number, longitude: number) {
 
     const data = await response.json();
     return data;
+}
+
+export async function getAirQuality(latitude: number, longitude: number) {
+    const response = await fetch(
+        `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,uv_index&timezone=auto`
+    )
+    if (!response.ok) {
+        throw new Error("Failed to fetch weather data");
+    }
+    const data = await response.json();
+    return data;
+
 }
 
 

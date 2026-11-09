@@ -30,7 +30,7 @@ export default function Location({ onSelectCity }: LocationProps) {
 
 
     return (
-        <div className="h-full w-full rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
+        <div className="h-full ml-3 w-full rounded-2xl border border-slate-100 bg-white p-4 shadow-sm">
 
             {/* Header */}
             <div className="mb-3 flex items-center justify-between">

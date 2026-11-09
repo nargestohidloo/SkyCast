@@ -16,9 +16,10 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
             weekday: "short",
         })
     );
-
-
-
+    const maxPrecipitation = Math.max(
+        ...(precipitation ?? [0]),
+        1
+    );
 
     const Mydata = [
         { id: 1, day: day?.[0], date: "", precipitation: precipitation?.[0] },
@@ -31,7 +32,7 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
     ];
 
     return (
-        <div className="w-full rounded-2xl bg-white p-6 shadow-sm">
+        <div className="w-full ml-3 rounded-2xl bg-white p-6 shadow-sm">
 
             {/* Header */}
             <div className="mb-8 flex items-center gap-3">
@@ -67,9 +68,9 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
                     {/* Values */}
                     <div className="flex justify-between gap-3">
                         {Mydata.map((val) => (
-                            <div key={val.id} className="flex flex-1 justify-center text-xs font-semibold text-slate-600">
+                            <div key={val.id} className="flex flex-1 justify-center text-[10px] font-semibold text-slate-600">
                                 {val.precipitation ?? 0}
-                                <span className="ml-0.5 text-[10px] text-slate-400">
+                                <span className="ml-0.5 text-[10px] text-slate-400 pl-0.5">
                                     mm
                                 </span>
                             </div>
@@ -81,7 +82,7 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
 
                         {Mydata.map((val) => {
                             const height = val.precipitation
-                                ? Math.min((val.precipitation * 100) / 30, 100)
+                                ? (val.precipitation / maxPrecipitation) * 100
                                 : 0;
 
                             return (

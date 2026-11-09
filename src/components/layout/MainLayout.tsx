@@ -1,31 +1,35 @@
+
 import { MainLayoutProps } from "@/types/types";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
-export default function MainLayout({ children, searchQuery, setSearchQuery, handleSearch, }: MainLayoutProps) {
+export default function MainLayout({
+    children,
+    searchQuery,
+    setSearchQuery,
+    handleSearch,
+}: MainLayoutProps) {
     return (
-        <div className="flex min-h-screen gap-3.5 bg-[#EAF2FF] p-3.5 ">
-            {/* Sidebar */}
+        <div className="min-h-screen bg-[#EAF2FF] p-3.5">
 
-            <aside className="hidden w-[260px] shrink-0 rounded-[20px] bg-white p-2 lg:block">
+            {/* Sidebar */}
+            <aside className="hidden fixed top-3.5 left-3.5 bottom-3.5 w-[260px] rounded-[20px] bg-white p-2 lg:block">
                 <SideBar />
             </aside>
 
             {/* Main Content */}
-
-            <div className="flex min-w-0 flex-1 flex-col gap-3">
-                {/* Header */}
+            <div className="flex min-w-0 flex-col gap-3 lg:ml-[274px]">
 
                 <Header
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     handleSearch={handleSearch}
                 />
-                {/* Page Content */}
 
-                <main className="min-w-0 flex-1 ">
+                <main className="min-w-0 flex-1">
                     {children}
                 </main>
+
             </div>
         </div>
     );

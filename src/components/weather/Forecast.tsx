@@ -4,7 +4,7 @@ import { CalendarDays } from "lucide-react";
 import { useState } from "react";
 
 
-export default function Forecast({ weather, daily, DailyIcon }: CurrentWeatherProps) {
+export default function Forecast({  daily, DailyIcon }: CurrentWeatherProps) {
 
     const MyData = [
         { id: 1, name: daily ? new Date(daily.time[0]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[0]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[0], temperture: daily?.temperature_2m_max[0], temp: daily?.temperature_2m_min[0] },

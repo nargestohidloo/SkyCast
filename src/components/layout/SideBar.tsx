@@ -20,7 +20,7 @@ export default function SideBar() {
 
     const pathname = usePathname();
     return (
-        <div className="bg-white min-h-full w-full relative ">
+        <div className="bg-white min-h-full w-full relative  ">
             <div className=" flex justify-center items-center">
                 <div>
                     <Image

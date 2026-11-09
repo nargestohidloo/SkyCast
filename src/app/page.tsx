@@ -8,6 +8,7 @@ import Location from "@/components/weather/Location";
 import PrecipitationLevels from "@/components/weather/PrecipitationLevels";
 import TempertureTrends from "@/components/weather/TempertureTrends";
 import WeatherCard from "@/components/weather/WeatherCard";
+import WeatherQuality from "@/components/weather/WeatherQuality";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
@@ -26,7 +27,8 @@ export default function Page() {
     WeatherIcon,
     DailyIcon,
     handleSelectCity,
-    hourly
+    hourly,
+    airQuality
   } = useWeather();
   return (
     // ساختار اصلی صفحه و Layout
@@ -37,7 +39,7 @@ export default function Page() {
     >
       <div className="h-[980px] w-full ">
         {/* ردیف اول: وضعیت فعلی آب‌وهوا */}
-        <div className="flex h-[320px] gap-2 w-full *:h-full ">
+        <div className="flex h-[340px] gap-2 w-full *:h-full ">
 
           {/* کامپوننت وضعیت فعلی */}
           <div className="w-[860px]">
@@ -57,28 +59,29 @@ export default function Page() {
           {/* فضای سایر بخش‌های ردیف اول */}
           <div className="flex h-[300px] w-full  justify-end ">
             <div className="w-[740px]">
-              <Forecast
-                weather={weather}
+
+              <TempertureTrends
+                hourly={hourly}
                 daily={daily}
-                DailyIcon={DailyIcon}
               />
             </div>
           </div>
         </div>
 
         {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
-        <div className="flex h-[300px] w-full  mt-3 gap-10">
-          {/* کامپوننت پیش‌بینی */}
-          <div className=" w-[510px]">
-            <Location
-              onSelectCity={handleSelectCity}
+
+
+        <div className=" w-full h-[300px] flex mt-4">
+          <div className="w-1/2 h-full">
+            <Forecast
+              weather={weather}
+              daily={daily}
+              DailyIcon={DailyIcon}
             />
           </div>
-
-          {/* فضاهای سایر بخش‌های ردیف دوم */}
-          <div className="flex h-[300px] w-[480px] justify-end ">
-            <PrecipitationLevels
-              daily={daily}
+          <div className=" w-[400px]">
+            <Location
+              onSelectCity={handleSelectCity}
             />
           </div>
           <div className=" w-[220px]">
@@ -88,18 +91,22 @@ export default function Page() {
             />
           </div>
         </div>
-
         {/* فضای بخش‌های بعدی داشبورد */}
-        <div className=" w-full h-[340px] mt-4">
-          <div className="w-1/2 h-full">
-            <TempertureTrends
-              hourly={hourly}
+        <div className="flex h-[300px] w-full  mt-3 gap-10">
+
+          {/* فضاهای سایر بخش‌های ردیف دوم */}
+          <div className="flex h-[300px] w-[480px] justify-end ">
+            <PrecipitationLevels
               daily={daily}
             />
           </div>
-          <div></div>
-        </div>
+          <div className=" w-[760px] ">
+            <WeatherQuality
+              airQuality={airQuality}
+            />
+          </div>
 
+        </div>
       </div>
     </MainLayout>
   );
