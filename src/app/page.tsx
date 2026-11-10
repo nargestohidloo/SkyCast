@@ -1,3 +1,4 @@
+
 "use client";
 
 // وارد کردن کامپوننت‌های موردنیاز صفحه
@@ -30,6 +31,7 @@ export default function Page() {
     hourly,
     airQuality
   } = useWeather();
+
   return (
     // ساختار اصلی صفحه و Layout
     <MainLayout
@@ -37,12 +39,13 @@ export default function Page() {
       setSearchQuery={setSearchQuery}
       handleSearch={handleSearch}
     >
-      <div className="h-[980px] w-full ">
+      <div className="w-full min-w-0 space-y-4">
+
         {/* ردیف اول: وضعیت فعلی آب‌وهوا */}
-        <div className="flex h-[340px] gap-2 w-full *:h-full ">
+        <div className="grid w-full min-w-0 grid-cols-1 gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)]">
 
           {/* کامپوننت وضعیت فعلی */}
-          <div className="w-[860px]">
+          <div className="h-full min-w-0">
             <CurrentWeather
               weather={weather}
               daily={daily}
@@ -56,51 +59,54 @@ export default function Page() {
             />
           </div>
 
-          {/* فضای سایر بخش‌های ردیف اول */}
-          <div className="flex h-[300px] w-full  justify-end ">
-            <div className="w-[740px]">
-
-              <TempertureTrends
-                hourly={hourly}
-                daily={daily}
-              />
-            </div>
+          {/* نمودار تغییرات دما */}
+          <div className="h-full min-w-0">
+            <TempertureTrends
+              hourly={hourly}
+              daily={daily}
+            />
           </div>
         </div>
 
-        {/* ردیف دوم: پیش‌بینی آب‌وهوا */}
+        {/* ردیف دوم: پیش‌بینی و شهرها */}
+        <div className="grid w-full min-w-0 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_380px_205px]">
 
-
-        <div className=" w-full h-[300px] flex mt-4">
-          <div className="w-1/2 h-full">
+          {/* پیش‌بینی هفتگی */}
+          <div className="h-full min-w-0 md:col-span-2 xl:col-span-1">
             <Forecast
               weather={weather}
               daily={daily}
               DailyIcon={DailyIcon}
             />
           </div>
-          <div className=" w-[380px]">
+
+          {/* شهرهای محبوب */}
+          <div className="h-full min-w-0">
             <Location
               onSelectCity={handleSelectCity}
             />
           </div>
-          <div className=" w-[205px]">
+
+          {/* اطلاعات طلوع و غروب */}
+          <div className="h-full min-w-0">
             <WeatherCard
               daily={daily}
-
             />
           </div>
         </div>
-        {/* فضای بخش‌های بعدی داشبورد */}
-        <div className="flex h-[300px] w-full mt-3 gap-5">
 
-          {/* فضاهای سایر بخش‌های ردیف دوم */}
-          <div className="flex h-[300px] w-[480px] justify-end ">
+        {/* ردیف سوم: بارش و کیفیت هوا */}
+        <div className="grid w-full min-w-0 grid-cols-1 gap-4 xl:grid-cols-[minmax(0,480px)_minmax(0,1fr)]">
+
+          {/* میزان بارش */}
+          <div className="h-full min-w-0">
             <PrecipitationLevels
               daily={daily}
             />
           </div>
-          <div className=" w-[720px] ">
+
+          {/* کیفیت هوا */}
+          <div className="h-full min-w-0">
             <WeatherQuality
               airQuality={airQuality}
             />
