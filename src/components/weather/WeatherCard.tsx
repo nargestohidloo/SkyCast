@@ -7,7 +7,7 @@ export default function WeatherCard({ daily }: WeatherCardProps) {
     const MySunset = daily?.sunset?.[0]?.split("T")[1];
 
     return (
-        <div className="h-full ml-6 w-full rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
+        <div className="h-full ml-6 w-[205px] rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
 
             {/* Header */}
             <div className="mb-6 flex items-center gap-3">

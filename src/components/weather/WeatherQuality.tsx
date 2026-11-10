@@ -123,7 +123,7 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
     }
 
     return (
-        <div className="w-full min-h-[300px] rounded-[10px] border border-slate-200/80 bg-white p-3 sm:p-4 shadow-[0_8px_30px_rgba(30,64,175,0.06)]">
+        <div className="w-[720px] min-h-[300px] rounded-[10px] border border-slate-200/80 bg-white p-3 sm:p-4 shadow-[0_8px_30px_rgba(30,64,175,0.06)]">
 
             {/* Header */}
             <div className="mb-3 flex items-center gap-2">

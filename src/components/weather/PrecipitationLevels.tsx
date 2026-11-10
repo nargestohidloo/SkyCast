@@ -32,7 +32,7 @@ export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps)
     ];
 
     return (
-        <div className="w-full ml-3 rounded-2xl bg-white p-6 shadow-sm">
+        <div className="w-full rounded-2xl bg-white p-6 shadow-sm">
 
             {/* Header */}
             <div className="mb-8 flex items-center gap-3">

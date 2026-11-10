@@ -24,7 +24,7 @@ export default function MainLayout({
                     setSearchQuery={setSearchQuery}
                     handleSearch={handleSearch}
                 />
-                <main className="min-w-0 flex-1">
+                <main className="min-w-0 flex-1  ">
                     {children}
                 </main>
 

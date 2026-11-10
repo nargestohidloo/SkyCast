@@ -79,12 +79,12 @@ export default function Page() {
               DailyIcon={DailyIcon}
             />
           </div>
-          <div className=" w-[400px]">
+          <div className=" w-[380px]">
             <Location
               onSelectCity={handleSelectCity}
             />
           </div>
-          <div className=" w-[220px]">
+          <div className=" w-[205px]">
             <WeatherCard
               daily={daily}
 
@@ -92,7 +92,7 @@ export default function Page() {
           </div>
         </div>
         {/* فضای بخش‌های بعدی داشبورد */}
-        <div className="flex h-[300px] w-full  mt-3 gap-10">
+        <div className="flex h-[300px] w-full mt-3 gap-5">
 
           {/* فضاهای سایر بخش‌های ردیف دوم */}
           <div className="flex h-[300px] w-[480px] justify-end ">
@@ -100,7 +100,7 @@ export default function Page() {
               daily={daily}
             />
           </div>
-          <div className=" w-[760px] ">
+          <div className=" w-[720px] ">
             <WeatherQuality
               airQuality={airQuality}
             />
