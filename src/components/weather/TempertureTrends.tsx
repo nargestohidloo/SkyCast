@@ -4,7 +4,13 @@
 import type { TempertureTrendsProps } from "@/types/types";
 
 import {
-    AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer,
+    AreaChart,
+    Area,
+    XAxis,
+    YAxis,
+    Tooltip,
+    CartesianGrid,
+    ResponsiveContainer,
 } from "recharts";
 
 import { Thermometer } from "lucide-react";
@@ -19,62 +25,66 @@ export default function TempertureTrends({ hourly, daily }: TempertureTrendsProp
         }),
         temperature: hourly?.temperature_2m[index],
     })) ?? [];
-    // خروجی :
-    //     const chartData = [
-    //     { time: "12 AM", temperature: 8 },
-    //     { time: "1 AM", temperature: 7 },
-    //     { time: "2 AM", temperature: 9 },
-    // ];
 
     const weekday = daily?.time.map((val, index) => {
         return {
             time: new Date(val).toLocaleDateString("en-US", {
                 weekday: "short",
-
             }),
             temperature: daily?.temperature_2m_max[index],
-        }
+        };
     }) ?? [];
+
     const [selectedPeriod, setSelectedPeriod] = useState("today");
+
     const activeData = selectedPeriod === "today" ? chartData : weekday;
 
-
     return (
-        <div className="h-full w-full rounded-2xl border border-blue-100 bg-white p-5 shadow-sm">
+        <div className="h-full w-full min-w-0 overflow-hidden rounded-2xl border border-blue-100 bg-white p-4 shadow-sm sm:p-5">
 
             {/* Header */}
-            <div className="mb-5 flex items-center justify-between">
+            <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
-                <div className="flex items-center gap-3">
-                    <Thermometer size={25} className="text-blue-800" />
+                <div className="flex min-w-0 items-center gap-3">
+                    <Thermometer size={23} className="shrink-0 text-blue-800 sm:h-[25px] sm:w-[25px]" />
 
-                    <h2 className="text-lg font-semibold text-blue-950">
+                    <h2 className="text-base font-semibold text-blue-950 sm:text-lg">
                         Temperature Trend
                     </h2>
                 </div>
 
-                <div className="flex items-center rounded-full bg-blue-50 p-1">
+                {/* Period Selector */}
+                <div className="flex w-fit items-center rounded-full bg-blue-50 p-1">
 
-                    <button className={`px-5 py-2 text-sm text-blue-70 
-                    ${selectedPeriod === "today" ? "rounded-full bg-blue-600 text-white shadow-sm"
-                            : "text-blue-700"}`}
-                        onClick={() => setSelectedPeriod("today")}>
+                    <button
+                        type="button"
+                        className={`rounded-full px-3 py-2 text-xs transition sm:px-5 sm:text-sm
+                        ${selectedPeriod === "today"
+                            ? "bg-blue-600 text-white shadow-sm"
+                            : "text-blue-700"
+                        }`}
+                        onClick={() => setSelectedPeriod("today")}
+                    >
                         Today
                     </button>
 
-                    <button className={`px-5 py-2 text-sm text-blue-70 
-                    ${selectedPeriod === "7days" ? "rounded-full bg-blue-600 text-white shadow-sm"
-                            : "text-blue-700"}`}
-                        onClick={() => setSelectedPeriod("7days")}>
+                    <button
+                        type="button"
+                        className={`rounded-full px-3 py-2 text-xs transition sm:px-5 sm:text-sm
+                        ${selectedPeriod === "7days"
+                            ? "bg-blue-600 text-white shadow-sm"
+                            : "text-blue-700"
+                        }`}
+                        onClick={() => setSelectedPeriod("7days")}
+                    >
                         7 Days
                     </button>
-
 
                 </div>
             </div>
 
             {/* Chart */}
-            <div className="h-[250px] w-full">
+            <div className="h-[220px] w-full min-w-0 sm:h-[250px]">
 
                 <ResponsiveContainer width="100%" height="100%">
 
@@ -122,7 +132,7 @@ export default function TempertureTrends({ hourly, daily }: TempertureTrendsProp
                         <YAxis
                             domain={[0, 30]}
                             ticks={[0, 5, 10, 15, 20, 25, 30]}
-                            tick={{ fontSize: 11, fill: "#31558A" }}
+                            tick={{ fontSize: 10, fill: "#31558A" }}
                             axisLine={false}
                             tickLine={false}
                             tickFormatter={(value) => `${value}°`}
@@ -164,9 +174,7 @@ export default function TempertureTrends({ hourly, daily }: TempertureTrendsProp
                     </AreaChart>
 
                 </ResponsiveContainer>
-
             </div>
-
         </div>
     );
 }

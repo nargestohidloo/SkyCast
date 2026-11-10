@@ -123,15 +123,15 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
     }
 
     return (
-        <div className="w-[720px] min-h-[300px] rounded-[10px] border border-slate-200/80 bg-white p-3 sm:p-4 shadow-[0_8px_30px_rgba(30,64,175,0.06)]">
+        <div className="min-h-[300px] w-full min-w-0 overflow-hidden rounded-[10px] border border-slate-200/80 bg-white p-3 shadow-[0_8px_30px_rgba(30,64,175,0.06)] sm:p-4">
 
             {/* Header */}
             <div className="mb-3 flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                     <Wind size={20} />
                 </div>
 
-                <h2 className="text-sm font-bold text-slate-800">
+                <h2 className="text-sm font-bold text-slate-800 sm:text-base">
                     Air Quality & UV Index
                 </h2>
             </div>
@@ -140,10 +140,10 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
 
                 {/* Air Quality */}
-                <div className="m-2 flex flex-col rounded-2xl border border-slate-100 bg-slate-50/50 p-2.5">
+                <div className="m-1 flex min-w-0 flex-col rounded-2xl border border-slate-100 bg-slate-50/50 p-2.5 sm:m-2">
 
                     <div className="mb-2 flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-green-100 text-green-600">
+                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600">
                             <Leaf size={16} />
                         </div>
 
@@ -152,17 +152,17 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         </span>
                     </div>
 
-                    <div className="flex items-center justify-center gap-3">
+                    <div className="flex min-w-0 items-center justify-center gap-2 sm:gap-3">
 
                         {/* Gauge */}
                         <div
-                            className="relative flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-full"
+                            className="relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full sm:h-[88px] sm:w-[88px]"
                             style={{
                                 background: `conic-gradient(${aqiGaugeColor} 0% ${aqiPercent}%, #e2e8f0 ${aqiPercent}% 100%)`
                             }}
                         >
-                            <div className="flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full bg-white">
-                                <span className="text-3xl font-bold text-slate-800">
+                            <div className="flex h-[62px] w-[62px] flex-col items-center justify-center rounded-full bg-white sm:h-[72px] sm:w-[72px]">
+                                <span className="text-2xl font-bold text-slate-800 sm:text-3xl">
                                     {aqi}
                                 </span>
 
@@ -173,23 +173,23 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         </div>
 
                         {/* Description */}
-                        <div className="flex flex-1 flex-col gap-1">
-                            <span className={`text-lg font-bold ${aqiColor}`}>
+                        <div className="flex min-w-0 flex-1 flex-col gap-1">
+                            <span className={`text-base font-bold sm:text-lg ${aqiColor}`}>
                                 {aqiStatus}
                             </span>
 
-                            <p className="text-xs leading-5 text-slate-500">
+                            <p className="text-[11px] leading-5 text-slate-500 sm:text-xs">
                                 {aqiDescription}
                             </p>
                         </div>
                     </div>
 
                     {/* AQI Badge */}
-                    <div className={`mt-2 flex items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-[10px] font-semibold ${aqiBadgeColor}`}>
+                    <div className={`mt-2 flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-center text-[9px] font-semibold sm:text-[10px] ${aqiBadgeColor}`}>
                         {aqi <= 40 ? (
-                            <CheckCircle2 size={13} />
+                            <CheckCircle2 size={13} className="shrink-0" />
                         ) : (
-                            <AlertTriangle size={13} />
+                            <AlertTriangle size={13} className="shrink-0" />
                         )}
 
                         {aqiBadge}
@@ -197,10 +197,10 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                 </div>
 
                 {/* UV Index */}
-                <div className="m-2 flex flex-col rounded-2xl border border-slate-100 bg-slate-50/50 p-2.5">
+                <div className="m-1 flex min-w-0 flex-col rounded-2xl border border-slate-100 bg-slate-50/50 p-2.5 sm:m-2">
 
                     <div className="mb-2 flex items-center gap-2">
-                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-orange-100 text-orange-500">
+                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-100 text-orange-500">
                             <Sun size={17} />
                         </div>
 
@@ -209,17 +209,17 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         </span>
                     </div>
 
-                    <div className="flex items-center justify-center gap-3">
+                    <div className="flex min-w-0 items-center justify-center gap-2 sm:gap-3">
 
                         {/* Gauge */}
                         <div
-                            className="relative flex h-[88px] w-[88px] shrink-0 items-center justify-center rounded-full"
+                            className="relative flex h-[76px] w-[76px] shrink-0 items-center justify-center rounded-full sm:h-[88px] sm:w-[88px]"
                             style={{
                                 background: `conic-gradient(${uvGaugeColor} 0% ${uvPercent}%, #e2e8f0 ${uvPercent}% 100%)`
                             }}
                         >
-                            <div className="flex h-[72px] w-[72px] flex-col items-center justify-center rounded-full bg-white">
-                                <span className="text-3xl font-bold text-slate-800">
+                            <div className="flex h-[62px] w-[62px] flex-col items-center justify-center rounded-full bg-white sm:h-[72px] sm:w-[72px]">
+                                <span className="text-2xl font-bold text-slate-800 sm:text-3xl">
                                     {uv}
                                 </span>
 
@@ -230,23 +230,23 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         </div>
 
                         {/* Description */}
-                        <div className="flex flex-1 flex-col gap-1">
-                            <span className={`text-lg font-bold ${uvColor}`}>
+                        <div className="flex min-w-0 flex-1 flex-col gap-1">
+                            <span className={`text-base font-bold sm:text-lg ${uvColor}`}>
                                 {uvState}
                             </span>
 
-                            <p className="text-xs leading-5 text-slate-500">
+                            <p className="text-[11px] leading-5 text-slate-500 sm:text-xs">
                                 {uvDescription}
                             </p>
                         </div>
                     </div>
 
                     {/* UV Badge */}
-                    <div className={`mt-2 flex items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-[10px] font-semibold ${uvBadgeColor}`}>
+                    <div className={`mt-2 flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-center text-[9px] font-semibold sm:text-[10px] ${uvBadgeColor}`}>
                         {uv <= 2 ? (
-                            <CheckCircle2 size={13} />
+                            <CheckCircle2 size={13} className="shrink-0" />
                         ) : (
-                            <AlertTriangle size={13} />
+                            <AlertTriangle size={13} className="shrink-0" />
                         )}
 
                         {uvBadge}
