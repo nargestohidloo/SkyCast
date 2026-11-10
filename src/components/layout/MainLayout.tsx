@@ -19,13 +19,11 @@ export default function MainLayout({
 
             {/* Main Content */}
             <div className="flex min-w-0 flex-col gap-3 lg:ml-[274px]">
-
                 <Header
                     searchQuery={searchQuery}
                     setSearchQuery={setSearchQuery}
                     handleSearch={handleSearch}
                 />
-
                 <main className="min-w-0 flex-1">
                     {children}
                 </main>

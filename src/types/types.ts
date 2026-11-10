@@ -6,8 +6,6 @@ export type WeatherApp = {
   title: string;
   des: string;
   icon: LucideIcon;
-  loc?: string;
-  showDate?: boolean;
 };
 
 // نوع اطلاعات آب‌وهوای فعلی
@@ -98,10 +96,10 @@ export type LocationProps = {
 };
 
 export interface MainLayoutProps {
-    children: React.ReactNode | undefined;
-    searchQuery: string | undefined;
-    setSearchQuery: ((value: string) => void) | undefined;
-    handleSearch: (() => void) | undefined;
+    children?: React.ReactNode | undefined;
+    searchQuery?: string | undefined;
+    setSearchQuery?: ((value: string) => void) | undefined;
+    handleSearch?: (() => void) | undefined;
 }
 
 export interface HeaderProps {
