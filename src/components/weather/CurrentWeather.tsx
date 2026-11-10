@@ -25,6 +25,14 @@ export default function CurrentWeather(
         { id: 4, name: "Sunset", title: `${daily?.sunset[0]?.split("T")[1]}`, icon: Sunset },
     ];
 
+    const time = daily?.time[0] ?
+        new Date(daily.time[0]).toLocaleDateString("en-US", {
+            weekday: "short",
+            day: "numeric",
+            month: "short",
+        })
+        : null;
+
     // نمایش Loading تا زمان دریافت اطلاعات
     if (!weather || !daily) {
         return (
@@ -55,7 +63,7 @@ export default function CurrentWeather(
                         <h2 className="text-xl text-slate-800">{cityName}</h2>
 
                         <p className="mt-1 text-xs text-slate-400">
-                            {daily.time[0]}
+                            {time}
                         </p>
                     </div>
                 </div>
