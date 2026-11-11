@@ -61,6 +61,7 @@ export default function Page() {
               handleSearch={handleSearch}
               WeatherIcon={WeatherIcon}
               selectedDay={selectedDay}
+              hourly={hourly}
             />
           </div>
 

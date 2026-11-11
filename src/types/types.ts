@@ -55,6 +55,7 @@ export interface CurrentWeatherProps {
   DailyIcon?: LucideIcon[] | undefined;
   handleSelectCity?: ((city: MyCity) => void) | undefined;
   selectedDay: number;
+  hourly: HourlyWeather | null;
 
 }
 
@@ -120,10 +121,13 @@ export interface WeatherCardProps {
 }
 
 
-export interface HourlyWeather {
-  time: string[];
-  temperature_2m: number[];
+
+  export interface HourlyWeather {
+    time: string[];
+    temperature_2m: number[];
+    apparent_temperature: number[];
 }
+
 
 export interface TempertureTrendsProps {
   hourly: HourlyWeather | null;

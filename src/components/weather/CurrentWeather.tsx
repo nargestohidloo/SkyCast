@@ -13,8 +13,30 @@ export default function CurrentWeather({
     searchQuery,
     setSearchQuery,
     handleSearch,
-    WeatherIcon
+    WeatherIcon,
+    hourly
 }: CurrentWeatherProps) {
+
+
+    const selectedDate = daily?.time[selectedDay];
+
+    const apparentTemperatures = hourly?.time
+        .map((time, index) => {
+            if (time.startsWith(selectedDate ?? "")) {
+                return hourly.apparent_temperature[index];
+            }
+
+            return null;
+        })
+        .filter((temp): temp is number => temp !== null) ?? [];
+
+    const averageFeelsLike = apparentTemperatures.length > 0
+        ? Math.round(
+            apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
+            apparentTemperatures.length
+        )
+        : "--";
+
 
     const MyData = [
         { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
@@ -108,12 +130,12 @@ export default function CurrentWeather({
 
                 <div className="flex min-w-0 flex-col">
                     <h1 className="text-5xl leading-none tracking-tight text-slate-800 sm:text-6xl">
-                       {daily.temperature_2m_max[selectedDay]}°C
+                        {daily.temperature_2m_max[selectedDay]}°C
                     </h1>
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3 sm:text-sm">
                         <span>
-                            Feels like {daily?.apparent_temperature_max?.[selectedDay] ?? "--"}°
+                            Feels like {averageFeelsLike}°
                         </span>
 
                         <span className="text-slate-300">·</span>
