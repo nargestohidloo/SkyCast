@@ -25,7 +25,7 @@ export default function MainLayout({
                     handleSearch={handleSearch}
                 />
 
-                <main className="min-w-0 flex-1">
+                <main className="min-w-0 flex-1 border">
                     {children}
                 </main>
             </div>

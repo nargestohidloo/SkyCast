@@ -69,8 +69,7 @@ export default function Page() {
         </div>
 
         {/* ردیف دوم: پیش‌بینی و شهرها */}
-        <div className="grid w-full min-w-0 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_380px_205px]">
-
+        <div className="grid w-full min-w-0 grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-[minmax(0,1fr)_minmax(0,380px)_minmax(0,205px)]">
           {/* پیش‌بینی هفتگی */}
           <div className="h-full min-w-0 md:col-span-2 xl:col-span-1">
             <Forecast
@@ -89,9 +88,8 @@ export default function Page() {
 
           {/* اطلاعات طلوع و غروب */}
           <div className="h-full min-w-0">
-            <WeatherCard
-              daily={daily}
-            />
+            <WeatherCard 
+            daily={daily} />
           </div>
         </div>
 
