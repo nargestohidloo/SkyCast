@@ -81,7 +81,7 @@ export default function Page() {
               daily={daily}
               DailyIcon={DailyIcon}
               selectedDay={selectedDay}
-              onDayChange={setSelectedDay}
+              setSelectedDay={setSelectedDay}
             />
           </div>
 

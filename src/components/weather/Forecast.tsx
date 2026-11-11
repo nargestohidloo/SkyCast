@@ -9,7 +9,7 @@ export default function Forecast({
     daily,
     DailyIcon,
     selectedDay,
-    onDayChange
+    setSelectedDay
 }: ForecastProps) {
 
     const MyData = [
@@ -88,18 +88,17 @@ export default function Forecast({
 
                 {MyData.map((val) => {
                     const Icon = val.icon;
-                    const isSelected = selectedDay === val.id - 1;
 
                     return (
                         <button
                             type="button"
                             key={val.id}
-                            onClick={() => onDayChange(val.id - 1)}
-                            className={`group flex min-h-[180px] w-[115px] shrink-0 snap-start flex-col items-center justify-between rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-[125px] lg:min-h-[190px] lg:w-auto lg:min-w-0
-                            ${isSelected
-                                ? "border-blue-500 bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-200"
-                                : "border-slate-100 bg-slate-50/70 text-slate-800 hover:border-blue-200 hover:bg-blue-50/50"
-                            }`}
+                            onClick={() => setSelectedDay(val.id - 1)}
+                            className={`  group flex min-h-[180px] w-[115px] shrink-0 snap-start flex-col items-center justify-between rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-[125px] lg:min-h-[190px] lg:w-auto lg:min-w-0
+                            ${selectedDay === val.id - 1
+                                    ? "border-blue-500 bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-200"
+                                    : "border-slate-100 bg-slate-50/70 text-slate-800 hover:border-blue-200 hover:bg-blue-50/50"
+                                }`}
                         >
 
                             {/* Day */}
@@ -108,9 +107,10 @@ export default function Forecast({
                                     {val.name}
                                 </span>
 
-                                <span className={`text-xs ${isSelected
-                                    ? "text-blue-100"
-                                    : "text-slate-400"
+                                <span className={`text-xs 
+                                ${selectedDay === val.id - 1
+                                        ? "text-blue-100"
+                                        : "text-slate-400"
                                     }`}>
                                     {val.date}
                                 </span>
@@ -118,10 +118,10 @@ export default function Forecast({
 
                             {/* Weather Icon */}
                             <div className={`mt-1.5 flex h-12 w-12 items-center justify-center rounded-2xl transition sm:h-14 sm:w-14
-                            ${isSelected
-                                ? "bg-white/15 text-white"
-                                : "bg-white text-blue-500 shadow-sm"
-                            }`}>
+                            ${selectedDay === val.id - 1
+                                    ? "bg-white/15 text-white"
+                                    : "bg-white text-blue-500 shadow-sm"
+                                }`}>
                                 {Icon && <Icon size={30} strokeWidth={1.7} />}
                             </div>
 
@@ -131,9 +131,10 @@ export default function Forecast({
                                     {convertTemp(val.temperture)}°
                                 </span>
 
-                                <span className={`text-[11px] font-medium ${isSelected
-                                    ? "text-blue-100"
-                                    : "text-slate-400"
+                                <span className={`text-[11px] font-medium 
+                                ${selectedDay === val.id - 1
+                                        ? "text-blue-100"
+                                        : "text-slate-400"
                                     }`}>
                                     {convertTemp(val.temp)}°
                                 </span>

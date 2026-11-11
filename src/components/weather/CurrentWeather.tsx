@@ -16,9 +16,6 @@ export default function CurrentWeather({
     WeatherIcon
 }: CurrentWeatherProps) {
 
-    const selectedDate = daily?.time[selectedDay];
-
-
     const MyData = [
         { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
         { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} %`, icon: Droplets },
@@ -116,7 +113,7 @@ export default function CurrentWeather({
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3 sm:text-sm">
                         <span>
-                            Feels like {weather.apparent_temperature}°
+                            Feels like {daily?.apparent_temperature_max?.[selectedDay] ?? "--"}°
                         </span>
 
                         <span className="text-slate-300">·</span>

@@ -18,8 +18,8 @@ export interface CurrentWeather {
   weather_code: number;
   wind_speed_10m: number;
   wind_direction_10m: number;
-  
-  
+
+
 }
 
 // نوع اطلاعات پیش‌بینی روزانه
@@ -55,6 +55,7 @@ export interface CurrentWeatherProps {
   DailyIcon?: LucideIcon[] | undefined;
   handleSelectCity?: ((city: MyCity) => void) | undefined;
   selectedDay: number;
+
 }
 
 export type WeatherIconProps = {
@@ -70,6 +71,8 @@ export interface DailyWeather {
   sunrise: string[];
   sunset: string[];
   precipitation_sum?: number[];
+  apparent_temperature_max: number[];
+apparent_temperature_min: number[];
 }
 
 
@@ -99,16 +102,16 @@ export type LocationProps = {
 };
 
 export interface MainLayoutProps {
-    children?: React.ReactNode | undefined;
-    searchQuery?: string | undefined;
-    setSearchQuery?: ((value: string) => void) | undefined;
-    handleSearch?: (() => void) | undefined;
+  children?: React.ReactNode | undefined;
+  searchQuery?: string | undefined;
+  setSearchQuery?: ((value: string) => void) | undefined;
+  handleSearch?: (() => void) | undefined;
 }
 
 export interface HeaderProps {
-    searchQuery: string | undefined;
-    setSearchQuery: ((value: string) => void) | undefined;
-    handleSearch: (() => void) | undefined;
+  searchQuery: string | undefined;
+  setSearchQuery: ((value: string) => void) | undefined;
+  handleSearch: (() => void) | undefined;
 }
 
 export interface WeatherCardProps {
@@ -118,26 +121,27 @@ export interface WeatherCardProps {
 
 
 export interface HourlyWeather {
-    time: string[];
-    temperature_2m: number[];
+  time: string[];
+  temperature_2m: number[];
 }
 
 export interface TempertureTrendsProps {
-    hourly: HourlyWeather | null;
-    daily :DailyWeather  | null;
+  hourly: HourlyWeather | null;
+  daily: DailyWeather | null;
 }
 
 export interface AirQuality {
-    european_aqi: number;
-    uv_index: number;
+  european_aqi: number;
+  uv_index: number;
 }
 
 export interface WeatherQualityProps {
-    airQuality: AirQuality | null;
+  airQuality: AirQuality | null;
 }
 export interface ForecastProps {
-    daily: DailyWeather | null;
-    DailyIcon?: LucideIcon[];
-    selectedDay: number;
-    onDayChange: (index: number) => void;
+  daily: DailyWeather | null;
+  DailyIcon?: LucideIcon[];
+  selectedDay: number;
+  setSelectedDay: (index: number) => void;
+
 }

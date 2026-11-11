@@ -17,8 +17,9 @@ export default function WeatherCard({ daily, selectedDay }: WeatherCardProps) {
             <div className="mb-5 flex items-center gap-3 sm:mb-6">
                 <CalendarDays size={22} className="shrink-0 text-blue-700" />
                 <span className="text-base font-semibold text-blue-950">
-                    {daily?.time?.[selectedDay]
-                        ? new Date(daily.time[selectedDay]).toLocaleDateString("en-US", { weekday: "long" })
+                    {daily?.time?.[selectedDay] ?
+                        new Date(daily.time[selectedDay]).toLocaleDateString("en-US",
+                            { weekday: "long" })
                         : "Today"}
                 </span>
             </div>
