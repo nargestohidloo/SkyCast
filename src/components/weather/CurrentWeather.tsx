@@ -6,6 +6,7 @@ import type { CurrentWeatherProps } from "@/types/types";
 export default function CurrentWeather({
     weather,
     daily,
+    selectedDay,
     cityName,
     isCityModalOpen,
     setIsCityModalOpen,
@@ -15,15 +16,18 @@ export default function CurrentWeather({
     WeatherIcon
 }: CurrentWeatherProps) {
 
+    const selectedDate = daily?.time[selectedDay];
+
+
     const MyData = [
         { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
         { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} %`, icon: Droplets },
-        { id: 3, name: "Sunrise", title: `${daily?.sunrise[0]?.split("T")[1]}`, icon: Sunrise },
-        { id: 4, name: "Sunset", title: `${daily?.sunset[0]?.split("T")[1]}`, icon: Sunset },
+        { id: 3, name: "Sunrise", title: `${daily?.sunrise[selectedDay]?.split("T")[1]}`, icon: Sunrise },
+        { id: 4, name: "Sunset", title: `${daily?.sunset[selectedDay]?.split("T")[1]}`, icon: Sunset },
     ];
 
-    const time = daily?.time[0] ?
-        new Date(daily.time[0]).toLocaleDateString("en-US", {
+    const time = daily?.time[selectedDay] ?
+        new Date(daily.time[selectedDay]).toLocaleDateString("en-US", {
             weekday: "short",
             day: "numeric",
             month: "short",
@@ -107,7 +111,7 @@ export default function CurrentWeather({
 
                 <div className="flex min-w-0 flex-col">
                     <h1 className="text-5xl leading-none tracking-tight text-slate-800 sm:text-6xl">
-                        {weather.temperature_2m}°C
+                       {daily.temperature_2m_max[selectedDay]}°C
                     </h1>
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3 sm:text-sm">
@@ -118,11 +122,11 @@ export default function CurrentWeather({
                         <span className="text-slate-300">·</span>
 
                         <span>
-                            H: {daily.temperature_2m_max[0]}°
+                            H: {daily.temperature_2m_max[selectedDay]}°
                         </span>
 
                         <span>
-                            L: {daily.temperature_2m_min[0]}°
+                            L: {daily.temperature_2m_min[selectedDay]}°
                         </span>
                     </div>
                 </div>

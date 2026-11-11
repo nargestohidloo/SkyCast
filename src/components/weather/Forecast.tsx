@@ -1,11 +1,17 @@
 
 "use client";
 
-import { CurrentWeatherProps } from "@/types/types";
+import { ForecastProps } from "@/types/types";
 import { CalendarDays } from "lucide-react";
 import { useState } from "react";
 
-export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
+export default function Forecast({
+    daily,
+    DailyIcon,
+    selectedDay,
+    onDayChange
+}: ForecastProps) {
+
     const MyData = [
         { id: 1, name: daily ? new Date(daily.time[0]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[0]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[0], temperture: daily?.temperature_2m_max[0], temp: daily?.temperature_2m_min[0] },
         { id: 2, name: daily ? new Date(daily.time[1]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[1]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[1], temperture: daily?.temperature_2m_max[1], temp: daily?.temperature_2m_min[1] },
@@ -16,7 +22,6 @@ export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
         { id: 7, name: daily ? new Date(daily.time[6]).toLocaleDateString("en-US", { weekday: "short" }) : "", date: daily ? new Date(daily.time[6]).toLocaleDateString("en-GB", { day: "numeric", month: "short" }) : "", icon: DailyIcon?.[6], temperture: daily?.temperature_2m_max[6], temp: daily?.temperature_2m_min[6] },
     ];
 
-    const [isopen, setIsopen] = useState(1);
     const [tempUnit, setTempUnit] = useState<"C" | "F">("C");
 
     function convertTemp(val: number | undefined) {
@@ -83,14 +88,15 @@ export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
 
                 {MyData.map((val) => {
                     const Icon = val.icon;
+                    const isSelected = selectedDay === val.id - 1;
 
                     return (
                         <button
                             type="button"
-                            onClick={() => setIsopen(val.id)}
                             key={val.id}
+                            onClick={() => onDayChange(val.id - 1)}
                             className={`group flex min-h-[180px] w-[115px] shrink-0 snap-start flex-col items-center justify-between rounded-2xl border p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:w-[125px] lg:min-h-[190px] lg:w-auto lg:min-w-0
-                            ${isopen === val.id
+                            ${isSelected
                                 ? "border-blue-500 bg-gradient-to-b from-blue-500 to-blue-700 text-white shadow-lg shadow-blue-200"
                                 : "border-slate-100 bg-slate-50/70 text-slate-800 hover:border-blue-200 hover:bg-blue-50/50"
                             }`}
@@ -102,7 +108,7 @@ export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
                                     {val.name}
                                 </span>
 
-                                <span className={`text-xs ${isopen === val.id
+                                <span className={`text-xs ${isSelected
                                     ? "text-blue-100"
                                     : "text-slate-400"
                                     }`}>
@@ -112,7 +118,7 @@ export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
 
                             {/* Weather Icon */}
                             <div className={`mt-1.5 flex h-12 w-12 items-center justify-center rounded-2xl transition sm:h-14 sm:w-14
-                            ${isopen === val.id
+                            ${isSelected
                                 ? "bg-white/15 text-white"
                                 : "bg-white text-blue-500 shadow-sm"
                             }`}>
@@ -125,7 +131,7 @@ export default function Forecast({ daily, DailyIcon }: CurrentWeatherProps) {
                                     {convertTemp(val.temperture)}°
                                 </span>
 
-                                <span className={`text-[11px] font-medium ${isopen === val.id
+                                <span className={`text-[11px] font-medium ${isSelected
                                     ? "text-blue-100"
                                     : "text-slate-400"
                                     }`}>

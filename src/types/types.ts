@@ -18,6 +18,8 @@ export interface CurrentWeather {
   weather_code: number;
   wind_speed_10m: number;
   wind_direction_10m: number;
+  
+  
 }
 
 // نوع اطلاعات پیش‌بینی روزانه
@@ -52,6 +54,7 @@ export interface CurrentWeatherProps {
   WeatherIcon?: LucideIcon | undefined;
   DailyIcon?: LucideIcon[] | undefined;
   handleSelectCity?: ((city: MyCity) => void) | undefined;
+  selectedDay: number;
 }
 
 export type WeatherIconProps = {
@@ -109,13 +112,11 @@ export interface HeaderProps {
 }
 
 export interface WeatherCardProps {
-    daily: DailyWeather | null;
+  daily: DailyWeather | null;
+  selectedDay: number;
 }
 
-export interface WeatherCardProps {
-    daily: DailyWeather | null ;
-    
-}
+
 export interface HourlyWeather {
     time: string[];
     temperature_2m: number[];
@@ -133,4 +134,10 @@ export interface AirQuality {
 
 export interface WeatherQualityProps {
     airQuality: AirQuality | null;
+}
+export interface ForecastProps {
+    daily: DailyWeather | null;
+    DailyIcon?: LucideIcon[];
+    selectedDay: number;
+    onDayChange: (index: number) => void;
 }

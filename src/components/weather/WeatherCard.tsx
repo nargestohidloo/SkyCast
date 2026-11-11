@@ -2,18 +2,24 @@
 import type { WeatherCardProps } from "@/types/types";
 import { CalendarDays, Sunrise, Sunset } from "lucide-react";
 
-export default function WeatherCard({ daily }: WeatherCardProps) {
+export default function WeatherCard({ daily, selectedDay }: WeatherCardProps) {
+    // قبلا برای همون روز 
+    // const MySunrise = daily?.sunrise?.[0]?.split("T")[1];
+    // const MySunset = daily?.sunset?.[0]?.split("T")[1];
 
-    const MySunrise = daily?.sunrise?.[0]?.split("T")[1];
-    const MySunset = daily?.sunset?.[0]?.split("T")[1];
+    // الان برای هر 7 روز
+    const MySunrise = daily?.sunrise?.[selectedDay]?.split("T")[1];
+    const MySunset = daily?.sunset?.[selectedDay]?.split("T")[1];
 
     return (
-<div className="h-full w-full min-w-0 max-w-full rounded-2xl border border-blue-100 bg-white p-4 shadow-sm sm:p-5">
+        <div className="h-full w-full min-w-0 max-w-full rounded-2xl border border-blue-100 bg-white p-4 shadow-sm sm:p-5">
             {/* Header */}
             <div className="mb-5 flex items-center gap-3 sm:mb-6">
                 <CalendarDays size={22} className="shrink-0 text-blue-700" />
                 <span className="text-base font-semibold text-blue-950">
-                    Today
+                    {daily?.time?.[selectedDay]
+                        ? new Date(daily.time[selectedDay]).toLocaleDateString("en-US", { weekday: "long" })
+                        : "Today"}
                 </span>
             </div>
 

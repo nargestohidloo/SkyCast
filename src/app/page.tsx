@@ -13,8 +13,12 @@ import WeatherQuality from "@/components/weather/WeatherQuality";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
+import { useState } from "react";
 
 export default function Page() {
+
+
+  const [selectedDay, setSelectedDay] = useState(0);
   // اجرای هوک و دریافت اطلاعات و توابع موردنیاز
   const {
     weather,
@@ -56,6 +60,7 @@ export default function Page() {
               setSearchQuery={setSearchQuery}
               handleSearch={handleSearch}
               WeatherIcon={WeatherIcon}
+              selectedDay={selectedDay}
             />
           </div>
 
@@ -73,9 +78,10 @@ export default function Page() {
           {/* پیش‌بینی هفتگی */}
           <div className="h-full min-w-0 md:col-span-2 xl:col-span-1">
             <Forecast
-              weather={weather}
               daily={daily}
               DailyIcon={DailyIcon}
+              selectedDay={selectedDay}
+              onDayChange={setSelectedDay}
             />
           </div>
 
@@ -88,8 +94,10 @@ export default function Page() {
 
           {/* اطلاعات طلوع و غروب */}
           <div className="h-full min-w-0">
-            <WeatherCard 
-            daily={daily} />
+            <WeatherCard
+              daily={daily}
+              selectedDay={selectedDay}
+            />
           </div>
         </div>
 
