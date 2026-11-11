@@ -78,6 +78,8 @@ export function useWeather() {
 
     const [airQuality, setAirQuality] = useState<AirQuality | null>(null);
 
+    const [timezone, setTimezone] = useState<string | null>(null);
+
 
     // دریافت اطلاعات اولیه آب‌وهوا
     useEffect(() => {
@@ -85,6 +87,7 @@ export function useWeather() {
             setWeather(data.current);
             setDaily(data.daily);
             setHourly(data.hourly);
+            setTimezone(data.timezone);
         });
         getAirQuality(35.667652, 51.403595).then((data) => {
             setAirQuality(data.current)
@@ -120,6 +123,8 @@ export function useWeather() {
         // بستن مودال بعد از جست‌وجوی موفق
         setIsCityModalOpen(false);
         setAirQuality(airData.current);
+        setTimezone(data.timezone);
+
     }
 
 
@@ -129,7 +134,8 @@ export function useWeather() {
             weather: null,
             daily: null,
             hourly: null,
-            airQuality: null
+            airQuality: null,
+            timezone: null,
         };
     }
 
@@ -154,6 +160,8 @@ export function useWeather() {
         setHourly(data.hourly);
         setCityName(city.name);
         setAirQuality(airData.current);
+        setTimezone(data.timezone);
+
     }
 
     const DailyIcon = daily.weather_code.map((val) => {
@@ -173,6 +181,7 @@ export function useWeather() {
         DailyIcon,
         handleSelectCity,
         hourly,
-        airQuality
+        airQuality,
+        timezone
     };
 }

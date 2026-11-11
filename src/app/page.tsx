@@ -33,7 +33,8 @@ export default function Page() {
     DailyIcon,
     handleSelectCity,
     hourly,
-    airQuality
+    airQuality,
+    timezone
   } = useWeather();
 
   return (
@@ -62,6 +63,8 @@ export default function Page() {
               WeatherIcon={WeatherIcon}
               selectedDay={selectedDay}
               hourly={hourly}
+              timezone={timezone}
+
             />
           </div>
 

@@ -14,27 +14,45 @@ export default function CurrentWeather({
     setSearchQuery,
     handleSearch,
     WeatherIcon,
-    hourly
+    hourly,
+    timezone
 }: CurrentWeatherProps) {
 
+    // میانگین : 
+    // const selectedDate = daily?.time[selectedDay];
+    // const apparentTemperatures = hourly?.time
+    //     .map((time, index) => {
+    //         if (time.startsWith(selectedDate ?? "")) {
+    //             return hourly.apparent_temperature[index];
+    //         }
+
+    //         return null;
+    //     })
+    //     .filter((temp) => temp !== null) ?? [];
+
+    // const averageFeelsLike =
+    //     Math.round(
+    //         apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
+    //         apparentTemperatures.length
+    //     );
 
     const selectedDate = daily?.time[selectedDay];
 
-    const apparentTemperatures = hourly?.time
-        .map((time, index) => {
-            if (time.startsWith(selectedDate ?? "")) {
-                return hourly.apparent_temperature[index];
-            }
+    const selectedHour = Number(
+        new Intl.DateTimeFormat("en-GB", {
+            hour: "2-digit",
+            hourCycle: "h23",
+            timeZone: timezone ?? undefined,
+        }).format(new Date())
+    );
+    const selectedTime = `${selectedDate}T${String(selectedHour).padStart(2, "0")}:00`;
 
-            return null;
-        })
-        .filter((temp) => temp !== null) ?? [];
+    const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
 
-    const averageFeelsLike =
-        Math.round(
-            apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
-            apparentTemperatures.length
-        );
+    const feelsLike =
+        selectedIndex !== -1
+            ? hourly?.apparent_temperature[selectedIndex]
+            : "--";
 
 
     const MyData = [
@@ -134,7 +152,7 @@ export default function CurrentWeather({
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3 sm:text-sm">
                         <span>
-                            Feels like {averageFeelsLike}°
+                            Feels like {feelsLike}°
                         </span>
 
                         <span className="text-slate-300">·</span>
