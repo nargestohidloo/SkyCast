@@ -24,7 +24,6 @@ export async function getWeather(latitude: number, longitude: number) {
     return data;
 }
 
-
 export async function getAirQuality(latitude: number, longitude: number) {
     const response = await fetch(
         `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,uv_index&timezone=auto`

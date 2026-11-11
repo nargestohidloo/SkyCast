@@ -28,14 +28,13 @@ export default function CurrentWeather({
 
             return null;
         })
-        .filter((temp): temp is number => temp !== null) ?? [];
+        .filter((temp) => temp !== null) ?? [];
 
-    const averageFeelsLike = apparentTemperatures.length > 0
-        ? Math.round(
+    const averageFeelsLike =
+        Math.round(
             apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
             apparentTemperatures.length
-        )
-        : "--";
+        );
 
 
     const MyData = [

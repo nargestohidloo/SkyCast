@@ -147,5 +147,4 @@ export interface ForecastProps {
   DailyIcon?: LucideIcon[];
   selectedDay: number;
   setSelectedDay: (index: number) => void;
-
 }
