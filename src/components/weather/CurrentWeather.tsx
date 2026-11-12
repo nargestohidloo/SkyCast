@@ -35,16 +35,23 @@ export default function CurrentWeather({
     //         apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
     //         apparentTemperatures.length
     //     );
-
     const selectedDate = daily?.time[selectedDay];
 
-    const selectedHour = Number(
-        new Intl.DateTimeFormat("en-GB", {
-            hour: "2-digit",
-            hourCycle: "h23",
-            timeZone: timezone ?? undefined,
-        }).format(new Date())
-    );
+    // 1. ساختن تاریخ و زمان فعلی
+    const now = new Date();
+    // 2. تنظیم فرمت نمایش ساعت
+    const formatter = new Intl.DateTimeFormat("en-GB", {
+        hour: "2-digit",
+        hourCycle: "h23",
+        timeZone: timezone ?? undefined,
+    });
+
+    // 3. گرفتن ساعت شهر انتخاب‌شده
+    const hourString = formatter.format(now);
+
+    // 4. تبدیل ساعت متنی به عدد
+    const selectedHour = Number(hourString);
+
     const selectedTime = `${selectedDate}T${String(selectedHour).padStart(2, "0")}:00`;
 
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
