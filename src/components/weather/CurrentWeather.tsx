@@ -47,12 +47,14 @@ export default function CurrentWeather({
     });
 
     // 3. گرفتن ساعت شهر انتخاب‌شده
+    // خروجی به صورت استرینگ هست اگر عملکرد ریاضی داشته باشی باید نامبرش کنی
+    // پایین نوشتمش :
     const hourString = formatter.format(now);
-
     // 4. تبدیل ساعت متنی به عدد
-    const selectedHour = Number(hourString);
+    // const selectedHour = Number(hourString);
 
-    const selectedTime = `${selectedDate}T${String(selectedHour).padStart(2, "0")}:00`;
+
+    const selectedTime = `${selectedDate}T${(hourString).padStart(2, "0")}:00`;
 
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
 
