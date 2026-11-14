@@ -53,11 +53,8 @@ export default function CurrentWeather({
     // 4. تبدیل ساعت متنی به عدد
     // const selectedHour = Number(hourString);
 
-
     const selectedTime = selectedDate + "T" + hourString + ":00";
-
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
-
     const feelsLike =
         selectedIndex !== -1
             ? hourly?.apparent_temperature[selectedIndex]
