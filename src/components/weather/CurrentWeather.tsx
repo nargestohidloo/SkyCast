@@ -35,6 +35,7 @@ export default function CurrentWeather({
     //         apparentTemperatures.reduce((sum, temp) => sum + temp, 0) /
     //         apparentTemperatures.length
     //     );
+    const isToday = selectedDay === 0;                                                                       
     const selectedDate = daily?.time[selectedDay];
 
     // 1. ساختن تاریخ و زمان فعلی
@@ -55,15 +56,34 @@ export default function CurrentWeather({
 
     const selectedTime = selectedDate + "T" + hourString + ":00";
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
-    const feelsLike =
-        selectedIndex !== -1
-            ? hourly?.apparent_temperature[selectedIndex]
+    
+    const feelsLike = isToday
+        ? weather?.apparent_temperature ?? "--"
+        : selectedIndex !== -1
+            ? hourly?.apparent_temperature[selectedIndex] ?? "--"
             : "--";
+
+    const windSpeed = isToday
+        ? weather?.wind_speed_10m ?? "--"
+        : hourly?.wind_speed_10m[selectedIndex] ?? "--";
+
+    const windDirection = isToday
+        ? weather?.wind_direction_10m ?? "--"
+        : hourly?.wind_direction_10m[selectedIndex] ?? "--";
+
+    const humidity = isToday
+        ? weather?.relative_humidity_2m ?? "--"
+        : hourly?.relative_humidity_2m[selectedIndex] ?? "--";
+
+    const temperature = isToday
+        ? weather?.temperature_2m ?? "--"
+        : daily?.temperature_2m_max[selectedDay] ?? "--";
+
 
 
     const MyData = [
-        { id: 1, name: "Wind", title: `${weather?.wind_speed_10m} km/h`, des: `${weather?.wind_direction_10m}°`, icon: Wind },
-        { id: 2, name: "Humidity", title: `${weather?.relative_humidity_2m} %`, icon: Droplets },
+        { id: 1, name: "Wind", title: `${windSpeed} km/h`, des: `${windDirection}°`, icon: Wind },
+        { id: 2, name: "Humidity", title: `${humidity} %`, icon: Droplets },
         { id: 3, name: "Sunrise", title: `${daily?.sunrise[selectedDay]?.split("T")[1]}`, icon: Sunrise },
         { id: 4, name: "Sunset", title: `${daily?.sunset[selectedDay]?.split("T")[1]}`, icon: Sunset },
     ];
@@ -75,6 +95,7 @@ export default function CurrentWeather({
             month: "short",
         })
         : null;
+
 
 
     // Loading
@@ -153,7 +174,7 @@ export default function CurrentWeather({
 
                 <div className="flex min-w-0 flex-col">
                     <h1 className="text-5xl leading-none tracking-tight text-slate-800 sm:text-6xl">
-                        {daily.temperature_2m_max[selectedDay]}°C
+                        {temperature}°C
                     </h1>
 
                     <div className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 sm:gap-3 sm:text-sm">
