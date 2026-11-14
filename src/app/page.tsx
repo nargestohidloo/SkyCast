@@ -60,7 +60,7 @@ export default function Page() {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               handleSearch={handleSearch}
-              WeatherIcon={WeatherIcon}
+              WeatherIcon={DailyIcon?.[selectedDay]}
               selectedDay={selectedDay}
               hourly={hourly}
               timezone={timezone}

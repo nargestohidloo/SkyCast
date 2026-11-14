@@ -55,7 +55,7 @@ export default function CurrentWeather({
 
 
     const selectedTime = selectedDate + "T" + hourString + ":00";
-    
+
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
 
     const feelsLike =
@@ -79,6 +79,7 @@ export default function CurrentWeather({
         })
         : null;
 
+
     // Loading
     if (!weather || !daily) {
         return (
@@ -93,7 +94,6 @@ export default function CurrentWeather({
         );
     }
 
-    console.log("hello world");
 
     return (
         <div className="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-slate-800 shadow-[0_8px_30px_rgba(30,64,175,0.06)]">
