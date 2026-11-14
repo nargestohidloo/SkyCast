@@ -43,20 +43,20 @@ export interface City {
 
 // نوع Props کامپوننت CurrentWeather
 export interface CurrentWeatherProps {
-    weather: CurrentWeather | null;
-    daily: DailyWeather | null;
-    cityName?: string | undefined;
-    isCityModalOpen?: boolean | undefined;
-    setIsCityModalOpen?: ((value: boolean) => void) | undefined;
-    searchQuery?: string | undefined;
-    setSearchQuery?: ((value: string) => void) | undefined;
-    handleSearch?: (() => void) | undefined;
-    WeatherIcon?: LucideIcon | undefined;
-    DailyIcon?: LucideIcon[] | undefined;
-    handleSelectCity?: ((city: MyCity) => void) | undefined;
-    selectedDay: number;
-    hourly: HourlyWeather | null;
-    timezone: string | null;
+  weather: CurrentWeather | null;
+  daily: DailyWeather | null;
+  cityName?: string | undefined;
+  isCityModalOpen?: boolean | undefined;
+  setIsCityModalOpen?: ((value: boolean) => void) | undefined;
+  searchQuery?: string | undefined;
+  setSearchQuery?: ((value: string) => void) | undefined;
+  handleSearch?: (() => void) | undefined;
+  WeatherIcon?: LucideIcon | undefined;
+  DailyIcon?: LucideIcon[] | undefined;
+  handleSelectCity?: ((city: MyCity) => void) | undefined;
+  selectedDay: number;
+  hourly: HourlyWeather | null;
+  timezone: string | null;
 
 }
 
@@ -70,11 +70,11 @@ export interface DailyWeather {
   weather_code: number[];
   temperature_2m_max: number[];
   temperature_2m_min: number[];
+  apparent_temperature_max: number[];
+  apparent_temperature_min: number[];
   sunrise: string[];
   sunset: string[];
   precipitation_sum?: number[];
-  apparent_temperature_max: number[];
-apparent_temperature_min: number[];
 }
 
 
@@ -123,10 +123,13 @@ export interface WeatherCardProps {
 
 
 
-  export interface HourlyWeather {
-    time: string[];
-    temperature_2m: number[];
-    apparent_temperature: number[];
+export interface HourlyWeather {
+  time: string[];
+  temperature_2m: number[];
+  apparent_temperature: number[];
+  relative_humidity_2m: number[];
+  wind_speed_10m: number[];
+  wind_direction_10m: number[];
 }
 
 
