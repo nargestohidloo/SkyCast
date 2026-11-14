@@ -2,7 +2,9 @@
 
 **A modern weather dashboard built with Next.js and TypeScript.**
 
-SkyCast is a responsive weather dashboard designed to provide real-time weather information, forecasts, and weather insights through a clean and intuitive interface.
+Explore real-time weather conditions, forecasts, air quality, and weather insights through a clean and responsive interface.
+
+🌐 **[Live Demo – SkyCast](https://sky-cast-me-192a.vercel.app/)**
 
 ## ✨ Features
 
