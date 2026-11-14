@@ -15,7 +15,7 @@ export async function searchCities(city: string): Promise<City[]> {
 
 export async function getWeather(latitude: number, longitude: number) {
     const response = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_direction_10m&timezone=auto`
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,wind_speed_10m,wind_direction_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,apparent_temperature_max,apparent_temperature_min,sunrise,sunset,precipitation_sum,uv_index_max&hourly=temperature_2m,apparent_temperature,relative_humidity_2m,wind_speed_10m,wind_direction_10m&forecast_days=7&timezone=auto`
     );
 
     if (!response.ok) {
@@ -29,9 +29,9 @@ export async function getWeather(latitude: number, longitude: number) {
 export async function getAirQuality(latitude: number, longitude: number) {
     const response = await fetch(
         `https://air-quality-api.open-meteo.com/v1/air-quality?latitude=${latitude}&longitude=${longitude}&current=european_aqi,uv_index&timezone=auto`
-    )
+    );
     if (!response.ok) {
-        throw new Error("Failed to fetch weather data");
+        throw new Error("Failed to fetch air quality data");
     }
     const data = await response.json();
     return data;

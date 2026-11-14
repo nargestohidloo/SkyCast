@@ -75,7 +75,9 @@ export interface DailyWeather {
   sunrise: string[];
   sunset: string[];
   precipitation_sum?: number[];
-}
+  uv_index_max: number[];
+};
+
 
 
 

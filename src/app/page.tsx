@@ -1,6 +1,4 @@
-
 "use client";
-
 // وارد کردن کامپوننت‌های موردنیاز صفحه
 import MainLayout from "@/components/layout/MainLayout";
 import CurrentWeather from "@/components/weather/CurrentWeather";
@@ -16,9 +14,6 @@ import { useWeather } from "@/hooks/useWeather";
 import { useState } from "react";
 
 export default function Page() {
-
-
-  const [selectedDay, setSelectedDay] = useState(0);
   // اجرای هوک و دریافت اطلاعات و توابع موردنیاز
   const {
     weather,
@@ -36,6 +31,11 @@ export default function Page() {
     airQuality,
     timezone
   } = useWeather();
+
+  const [selectedDay, setSelectedDay] = useState(0);
+  const SelectedWeatherIcon = selectedDay === 0
+    ? WeatherIcon
+    : DailyIcon?.[selectedDay];
 
   return (
     // ساختار اصلی صفحه و Layout
@@ -60,11 +60,10 @@ export default function Page() {
               searchQuery={searchQuery}
               setSearchQuery={setSearchQuery}
               handleSearch={handleSearch}
-              WeatherIcon={DailyIcon?.[selectedDay]}
+              WeatherIcon={SelectedWeatherIcon}
               selectedDay={selectedDay}
               hourly={hourly}
               timezone={timezone}
-
             />
           </div>
 
@@ -121,7 +120,6 @@ export default function Page() {
               airQuality={airQuality}
             />
           </div>
-
         </div>
       </div>
     </MainLayout>

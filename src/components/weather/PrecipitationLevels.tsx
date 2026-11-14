@@ -11,27 +11,24 @@ type PrecipitationLevelsProps = {
 export default function PrecipitationLevels({ daily }: PrecipitationLevelsProps) {
 
     const precipitation = daily?.precipitation_sum;
+    const maxPrecipitation = Math.max(...(precipitation ?? [0]), 1);
 
-    const day = daily?.time.map((val) =>
-        new Date(val).toLocaleDateString("en-US", {
+    // const Mydata = [
+    //     { id: 1, day: day?.[0], precipitation: precipitation?.[0] },
+    //     { id: 2, day: day?.[1], precipitation: precipitation?.[1] },
+    //     { id: 3, day: day?.[2], precipitation: precipitation?.[2] },
+    //     { id: 4, day: day?.[3], precipitation: precipitation?.[3] },
+    //     { id: 5, day: day?.[4], precipitation: precipitation?.[4] },
+    //     { id: 6, day: day?.[5], precipitation: precipitation?.[5] },
+    //     { id: 7, day: day?.[6], precipitation: precipitation?.[6] },
+    // ];
+    const Mydata = daily?.time.map((val, index) => ({
+        id: index + 1,
+        day: new Date(val).toLocaleDateString("en-US", {
             weekday: "short",
-        })
-    );
-
-    const maxPrecipitation = Math.max(
-        ...(precipitation ?? [0]),
-        1
-    );
-
-    const Mydata = [
-        { id: 1, day: day?.[0], precipitation: precipitation?.[0] },
-        { id: 2, day: day?.[1], precipitation: precipitation?.[1] },
-        { id: 3, day: day?.[2], precipitation: precipitation?.[2] },
-        { id: 4, day: day?.[3], precipitation: precipitation?.[3] },
-        { id: 5, day: day?.[4], precipitation: precipitation?.[4] },
-        { id: 6, day: day?.[5], precipitation: precipitation?.[5] },
-        { id: 7, day: day?.[6], precipitation: precipitation?.[6] },
-    ];
+        }),
+        precipitation: daily.precipitation_sum?.[index] ?? 0
+    })) ?? [];
 
     return (
         <div className="w-full min-w-0 overflow-hidden rounded-2xl bg-white p-4 shadow-sm sm:p-6">
