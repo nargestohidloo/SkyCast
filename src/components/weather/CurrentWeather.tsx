@@ -54,8 +54,8 @@ export default function CurrentWeather({
     // const selectedHour = Number(hourString);
 
 
-    const selectedTime = `${selectedDate}T${(hourString).padStart(2, "0")}:00`;
-
+    const selectedTime = selectedDate + "T" + hourString + ":00";
+    
     const selectedIndex = hourly?.time.indexOf(selectedTime) ?? -1;
 
     const feelsLike =
