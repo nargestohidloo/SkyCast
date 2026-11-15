@@ -117,7 +117,7 @@ export default function CurrentWeather({
         <div className="relative flex h-full w-full min-w-0 flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-white text-slate-800 shadow-[0_8px_30px_rgba(30,64,175,0.06)]">
 
             {/* Header */}
-            <div className="relative z-10 flex flex-wrap items-center justify-between gap-3 px-4 pt-5 sm:px-6">
+            <div className="relative z-30 flex flex-wrap items-center justify-between gap-3 px-4 pt-5 sm:px-6">
 
                 <div className="flex min-w-0 items-center gap-3">
                     <MapPin size={21} strokeWidth={2} className="shrink-0 text-blue-600" />
@@ -146,6 +146,7 @@ export default function CurrentWeather({
                         <input
                             className="min-w-0 flex-1 outline-none"
                             value={searchQuery}
+                            type="text"
                             onChange={(e) => setSearchQuery?.(e.target.value)}
                             placeholder="Search city..."
                         />

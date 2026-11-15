@@ -1,6 +1,4 @@
-
 "use client";
-
 import type { WeatherQualityProps } from "@/types/types";
 
 import {
@@ -9,104 +7,126 @@ import {
     Sun,
     CheckCircle2,
     AlertTriangle,
-} from "lucide-react";
+} from "lucide-react"
 
-export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
+export default function WeatherQuality({ airQuality, daily, selectedDay, Myaqi }: WeatherQualityProps) {
     const aqi = airQuality?.european_aqi ?? 0;
     const uv = airQuality?.uv_index ?? 0;
+    console.log(Myaqi);
+    const selectedDate = daily?.time[selectedDay];
 
-    const aqiPercent = Math.min(Math.max(aqi, 0), 100);
-    const uvPercent = Math.min(Math.max((uv / 11) * 100, 0), 100);
+    const mydata = Myaqi?.time?.map((time, index) => ({
+        time: time,
+        aqi: Myaqi.european_aqi[index]
+    })).filter((item) => item.time.split("T")[0] === selectedDate) ?? [];
+    console.log(mydata);
+
+    
+    const TheEndaqi = Math.max(...mydata.map((item) => item.aqi ?? 0));
+  
+    // هم روش ساعتی گرفت دارههم پیش بینی. من یکیشو ساعتی گرفتم یکیشو پیش بینی
+    const weeklyUVData = daily?.uv_index_max?.map((val, index) => ({
+        uv: val,
+        date: daily.time[index],
+    })) ?? [];
+
+
+    const DeafaultUV = selectedDay === 0 ? uv : weeklyUVData[selectedDay]?.uv ?? 0;
+    const DeafaultAQI = selectedDay === 0 ? aqi : TheEndaqi ?? 0;
+    const aqiPercent = Math.min(Math.max(DeafaultAQI, 0), 100);
+    const uvPercent = Math.min(Math.max((DeafaultUV / 11) * 100, 0), 100);
+
+
 
     const uvState =
-        uv <= 2 ? "Low" :
-        uv <= 5 ? "Moderate" :
-        uv <= 7 ? "High" :
-        uv <= 10 ? "Very High" :
-        "Extreme";
+        DeafaultUV <= 2 ? "Low" :
+            DeafaultUV <= 5 ? "Moderate" :
+                DeafaultUV <= 7 ? "High" :
+                    DeafaultUV <= 10 ? "Very High" :
+                        "Extreme";
 
     const aqiStatus =
-        aqi <= 20 ? "Good" :
-        aqi <= 40 ? "Fair" :
-        aqi <= 60 ? "Moderate" :
-        aqi <= 80 ? "Poor" :
-        aqi <= 100 ? "Very Poor" :
-        "Extremely Poor";
+        DeafaultAQI <= 20 ? "Good" :
+            DeafaultAQI <= 40 ? "Fair" :
+                DeafaultAQI <= 60 ? "Moderate" :
+                    DeafaultAQI <= 80 ? "Poor" :
+                        DeafaultAQI <= 100 ? "Very Poor" :
+                            "Extremely Poor";
 
     const aqiDescription =
-        aqi <= 20 ? "Air quality is good." :
-        aqi <= 40 ? "Air quality is acceptable." :
-        aqi <= 60 ? "Sensitive people should be cautious." :
-        aqi <= 80 ? "Health effects may occur." :
-        aqi <= 100 ? "Health alert: limit outdoor activity." :
-        "Avoid outdoor activities if possible.";
+        DeafaultAQI <= 20 ? "Air quality is good." :
+            DeafaultAQI <= 40 ? "Air quality is acceptable." :
+                DeafaultAQI <= 60 ? "Sensitive people should be cautious." :
+                    DeafaultAQI <= 80 ? "Health effects may occur." :
+                        DeafaultAQI <= 100 ? "Health alert: limit outdoor activity." :
+                            "Avoid outdoor activities if possible.";
 
     const uvDescription =
-        uv <= 2 ? "No special sun protection needed." :
-        uv <= 5 ? "Use sunscreen if outdoors." :
-        uv <= 7 ? "Protection is needed outdoors." :
-        uv <= 10 ? "Extra protection is essential." :
-        "Avoid direct sunlight if possible.";
+        DeafaultUV <= 2 ? "No special sun protection needed." :
+            DeafaultUV <= 5 ? "Use sunscreen if outdoors." :
+                DeafaultUV <= 7 ? "Protection is needed outdoors." :
+                    DeafaultUV <= 10 ? "Extra protection is essential." :
+                        "Avoid direct sunlight if possible.";
 
     const aqiColor =
-        aqi <= 20 ? "text-green-600" :
-        aqi <= 40 ? "text-lime-600" :
-        aqi <= 60 ? "text-yellow-600" :
-        aqi <= 80 ? "text-orange-600" :
-        aqi <= 100 ? "text-red-600" :
-        "text-red-800";
+        DeafaultAQI <= 20 ? "text-green-600" :
+            DeafaultAQI <= 40 ? "text-lime-600" :
+                DeafaultAQI <= 60 ? "text-yellow-600" :
+                    DeafaultAQI <= 80 ? "text-orange-600" :
+                        DeafaultAQI <= 100 ? "text-red-600" :
+                            "text-red-800";
 
     const uvColor =
-        uv <= 2 ? "text-green-600" :
-        uv <= 5 ? "text-yellow-600" :
-        uv <= 7 ? "text-orange-500" :
-        uv <= 10 ? "text-red-600" :
-        "text-purple-700";
+        DeafaultUV <= 2 ? "text-green-600" :
+            DeafaultUV <= 5 ? "text-yellow-600" :
+                DeafaultUV <= 7 ? "text-orange-500" :
+                    DeafaultUV <= 10 ? "text-red-600" :
+                        "text-purple-700";
 
     const aqiGaugeColor =
-        aqi <= 20 ? "#16a34a" :
-        aqi <= 40 ? "#65a30d" :
-        aqi <= 60 ? "#ca8a04" :
-        aqi <= 80 ? "#ea580c" :
-        aqi <= 100 ? "#dc2626" :
-        "#991b1b";
+        DeafaultAQI <= 20 ? "#16a34a" :
+            DeafaultAQI <= 40 ? "#65a30d" :
+                DeafaultAQI <= 60 ? "#ca8a04" :
+                    DeafaultAQI <= 80 ? "#ea580c" :
+                        DeafaultAQI <= 100 ? "#dc2626" :
+                            "#991b1b";
 
     const uvGaugeColor =
-        uv <= 2 ? "#16a34a" :
-        uv <= 5 ? "#ca8a04" :
-        uv <= 7 ? "#ea580c" :
-        uv <= 10 ? "#dc2626" :
-        "#7e22ce";
+        DeafaultUV <= 2 ? "#16a34a" :
+            DeafaultUV <= 5 ? "#ca8a04" :
+                DeafaultUV <= 7 ? "#ea580c" :
+                    DeafaultUV <= 10 ? "#dc2626" :
+                        "#7e22ce";
 
     const aqiBadge =
-        aqi <= 20 ? "No health risk" :
-        aqi <= 40 ? "Acceptable air quality" :
-        aqi <= 60 ? "Sensitive groups: Be cautious" :
-        aqi <= 80 ? "Limit outdoor activity" :
-        aqi <= 100 ? "Health alert" :
-        "Avoid outdoor activity";
+        DeafaultAQI <= 20 ? "No health risk" :
+            DeafaultAQI <= 40 ? "Acceptable air quality" :
+                DeafaultAQI <= 60 ? "Sensitive groups: Be cautious" :
+                    DeafaultAQI <= 80 ? "Limit outdoor activity" :
+                        DeafaultAQI <= 100 ? "Health alert" :
+                            "Avoid outdoor activity";
 
     const aqiBadgeColor =
-        aqi <= 20 ? "bg-green-100 text-green-700" :
-        aqi <= 40 ? "bg-lime-100 text-lime-700" :
-        aqi <= 60 ? "bg-yellow-100 text-yellow-700" :
-        aqi <= 80 ? "bg-orange-100 text-orange-700" :
-        aqi <= 100 ? "bg-red-100 text-red-700" :
-        "bg-red-200 text-red-800";
+        DeafaultAQI <= 20 ? "bg-green-100 text-green-700" :
+            DeafaultAQI <= 40 ? "bg-lime-100 text-lime-700" :
+                DeafaultAQI <= 60 ? "bg-yellow-100 text-yellow-700" :
+                    DeafaultAQI <= 80 ? "bg-orange-100 text-orange-700" :
+                        DeafaultAQI <= 100 ? "bg-red-100 text-red-700" :
+                            "bg-red-200 text-red-800";
 
     const uvBadge =
-        uv <= 2 ? "No protection needed" :
-        uv <= 5 ? "SPF 30+ recommended" :
-        uv <= 7 ? "Use SPF 30+ and seek shade" :
-        uv <= 10 ? "Avoid midday sun" :
-        "Avoid sun exposure";
+        DeafaultUV <= 2 ? "No protection needed" :
+            DeafaultUV <= 5 ? "SPF 30+ recommended" :
+                DeafaultUV <= 7 ? "Use SPF 30+ and seek shade" :
+                    DeafaultUV <= 10 ? "Avoid midday sun" :
+                        "Avoid sun exposure";
 
     const uvBadgeColor =
-        uv <= 2 ? "bg-green-100 text-green-700" :
-        uv <= 5 ? "bg-yellow-100 text-yellow-700" :
-        uv <= 7 ? "bg-orange-100 text-orange-700" :
-        uv <= 10 ? "bg-red-100 text-red-700" :
-        "bg-purple-100 text-purple-700";
+        DeafaultUV <= 2 ? "bg-green-100 text-green-700" :
+            DeafaultUV <= 5 ? "bg-yellow-100 text-yellow-700" :
+                DeafaultUV <= 7 ? "bg-orange-100 text-orange-700" :
+                    DeafaultUV <= 10 ? "bg-red-100 text-red-700" :
+                        "bg-purple-100 text-purple-700";
 
     if (!airQuality) {
         return (
@@ -163,7 +183,7 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         >
                             <div className="flex h-[62px] w-[62px] flex-col items-center justify-center rounded-full bg-white sm:h-[72px] sm:w-[72px]">
                                 <span className="text-2xl font-bold text-slate-800 sm:text-3xl">
-                                    {aqi}
+                                    {DeafaultAQI}
                                 </span>
 
                                 <span className="text-[10px] font-semibold text-slate-500">
@@ -186,7 +206,7 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
 
                     {/* AQI Badge */}
                     <div className={`mt-2 flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-center text-[9px] font-semibold sm:text-[10px] ${aqiBadgeColor}`}>
-                        {aqi <= 40 ? (
+                        {DeafaultAQI <= 40 ? (
                             <CheckCircle2 size={13} className="shrink-0" />
                         ) : (
                             <AlertTriangle size={13} className="shrink-0" />
@@ -220,7 +240,7 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
                         >
                             <div className="flex h-[62px] w-[62px] flex-col items-center justify-center rounded-full bg-white sm:h-[72px] sm:w-[72px]">
                                 <span className="text-2xl font-bold text-slate-800 sm:text-3xl">
-                                    {uv}
+                                    {DeafaultUV}
                                 </span>
 
                                 <span className="text-[10px] font-semibold text-slate-500">
@@ -243,7 +263,7 @@ export default function WeatherQuality({ airQuality }: WeatherQualityProps) {
 
                     {/* UV Badge */}
                     <div className={`mt-2 flex min-w-0 items-center justify-center gap-1.5 rounded-full px-2 py-1.5 text-center text-[9px] font-semibold sm:text-[10px] ${uvBadgeColor}`}>
-                        {uv <= 2 ? (
+                        {DeafaultUV <= 2 ? (
                             <CheckCircle2 size={13} className="shrink-0" />
                         ) : (
                             <AlertTriangle size={13} className="shrink-0" />

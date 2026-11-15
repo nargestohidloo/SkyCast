@@ -29,7 +29,8 @@ export default function Page() {
     handleSelectCity,
     hourly,
     airQuality,
-    timezone
+    timezone,
+    aqi
   } = useWeather();
 
   const [selectedDay, setSelectedDay] = useState(0);
@@ -117,7 +118,10 @@ export default function Page() {
           {/* کیفیت هوا */}
           <div className="h-full min-w-0">
             <WeatherQuality
+              daily={daily}
               airQuality={airQuality}
+              selectedDay={selectedDay}
+              Myaqi={aqi}
             />
           </div>
         </div>

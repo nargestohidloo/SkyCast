@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { getAirQuality, getWeather, searchCities } from "@/services/weather";
-import type { AirQuality, CurrentWeather, DailyWeather, HourlyWeather, MyCity } from "../types/types";
+import type { AirQuality, CurrentWeather, DailyWeather, HourlyAQI, HourlyWeather, MyCity } from "../types/types";
 import { Cloud, CloudDrizzle, CloudFog, CloudLightning, CloudRain, CloudSnow, CloudSun, Moon, Sun, } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
@@ -78,6 +78,8 @@ export function useWeather() {
 
     const [airQuality, setAirQuality] = useState<AirQuality | null>(null);
 
+    const [aqi, setAqi] = useState<HourlyAQI | null>(null);
+
     const [timezone, setTimezone] = useState<string | null>(null);
 
 
@@ -91,6 +93,7 @@ export function useWeather() {
         });
         getAirQuality(35.667652, 51.403595).then((data) => {
             setAirQuality(data.current)
+            setAqi(data.hourly)
         })
     }, []);
 
@@ -125,17 +128,19 @@ export function useWeather() {
         setAirQuality(airData.current);
         setTimezone(data.timezone);
 
+
     }
 
 
     // تا زمان دریافت اطلاعات، مقدارهای اولیه برگردانده می‌شوند
-    if (!weather || !daily || !hourly || !airQuality) {
+    if (!weather || !daily || !hourly || !airQuality || !aqi) {
         return {
             weather: null,
             daily: null,
             hourly: null,
             airQuality: null,
             timezone: null,
+            aqi: null,
         };
     }
 
@@ -182,6 +187,7 @@ export function useWeather() {
         handleSelectCity,
         hourly,
         airQuality,
+        aqi,
         timezone
     };
 }

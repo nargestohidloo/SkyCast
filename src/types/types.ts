@@ -79,8 +79,6 @@ export interface DailyWeather {
 };
 
 
-
-
 export type WeatherData = {
   daily: DailyWeather;
   current: {
@@ -143,14 +141,30 @@ export interface TempertureTrendsProps {
 export interface AirQuality {
   european_aqi: number;
   uv_index: number;
+
+}
+
+export interface HourlyAQI {
+    time: string[];
+    european_aqi: (number | null)[];
 }
 
 export interface WeatherQualityProps {
-  airQuality: AirQuality | null;
+    airQuality: AirQuality | null;
+    daily: DailyWeather | null;
+    selectedDay: number;
+    Myaqi: HourlyAQI | null;
+    timezone?: string | null;
 }
+
 export interface ForecastProps {
   daily: DailyWeather | null;
   DailyIcon?: LucideIcon[];
   selectedDay: number;
   setSelectedDay: (index: number) => void;
+}
+
+export interface HourlyAQI {
+    time: string[];
+    european_aqi: (number | null)[];
 }
