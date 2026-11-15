@@ -1,13 +1,16 @@
 "use client";
 // وارد کردن کامپوننت‌های موردنیاز صفحه
 import MainLayout from "@/components/layout/MainLayout";
-import CurrentWeather from "@/components/weather/CurrentWeather";
-import Forecast from "@/components/weather/Forecast";
-import Location from "@/components/weather/Location";
-import PrecipitationLevels from "@/components/weather/PrecipitationLevels";
-import TempertureTrends from "@/components/weather/TempertureTrends";
-import WeatherCard from "@/components/weather/WeatherCard";
-import WeatherQuality from "@/components/weather/WeatherQuality";
+// کامپوننت ها 
+import {
+  CurrentWeather,
+  Forecast,
+  Location,
+  PrecipitationLevels,
+  TempertureTrends,
+  WeatherCard,
+  WeatherQuality,
+} from "@/components/weather";
 
 // وارد کردن هوک مدیریت اطلاعات آب‌وهوا
 import { useWeather } from "@/hooks/useWeather";
