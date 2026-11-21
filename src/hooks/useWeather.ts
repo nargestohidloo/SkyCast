@@ -173,7 +173,12 @@ export function useWeather() {
         return getWeatherIcon(val, 1)
     })
 
+    // یه ابجکت هست 
+    // به دلیل => {}
+
     return {
+        // Shorthand Property Names
+        // weather : weather 
         weather,
         daily,
         cityName,

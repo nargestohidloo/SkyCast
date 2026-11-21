@@ -10,7 +10,7 @@ export default function Maps() {
                 des="Explore weather conditions on the map"
                 icon={Map}
             />
-
+          
         </MainLayout>
     );
 }

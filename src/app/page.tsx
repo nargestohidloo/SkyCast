@@ -18,6 +18,8 @@ import { useState } from "react";
 
 export default function Page() {
   // اجرای هوک و دریافت اطلاعات و توابع موردنیاز
+
+  // روش دریافت اطلاعات از ابجکت 
   const {
     weather,
     daily,
