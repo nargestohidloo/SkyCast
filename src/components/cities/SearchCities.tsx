@@ -45,6 +45,7 @@ export default function SearchCities() {
                 <div className="flex flex-wrap gap-2">
                     {MyData.map((val) => {
                         return (
+                            // مهم
                             <button
                                 key={val}
                                 className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"

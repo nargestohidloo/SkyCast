@@ -1,7 +1,9 @@
 import CutuesHeader from "./CitiesBanner";
 import CityCard from "./CityCard";
 import CitiyList from "./CityList";
+import RecentlyCities from "./RecentlyCities";
 import SearchCities from "./SearchCities";
+import WeatherTip from "./WeatherTip";
 
 export default function CitiesPage() {
     return (
@@ -18,13 +20,18 @@ export default function CitiesPage() {
                         <CitiyList />
                     </div>
                 </div>
-                <div className="w-[700px] h-full">
-                    <div className="h-70 ">
+                <div className="w-[700px] h-full flex flex-col  gap-5">
+                    <div className="w-full h-70 ">
                         <SearchCities />
                     </div>
-                    <div></div>
-                    <div></div>
+                    <div className="h-65">
+                        <RecentlyCities />
+                    </div>
                 </div>
+
+            </div>
+            <div className="h-28">
+                <WeatherTip />
             </div>
         </>
     )
