@@ -3,7 +3,7 @@ import { MapPin } from "lucide-react";
 export default function CutuesHeader() {
     return (
         <>
-            <div className="w-full h-full relative  ">
+            <div className="w-full h-full relative flex  ">
                 <Image
                     src="/images/mountain.png"
                     alt="Mountain landscape"
@@ -13,13 +13,10 @@ export default function CutuesHeader() {
                     className="object-cover object-bottom absolute rounded-[10px]"
                 />
                 <div className="absolute left-6 top-1/2 z-10 flex -translate-y-1/2 items-center gap-4">
-
-                    {/* Location Icon */}
                     <span className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/30 bg-white/20 text-white backdrop-blur-md">
                         <MapPin size={28} strokeWidth={1.8} className="text-blue-900" />
                     </span>
 
-                    {/* Text Content */}
                     <div className="flex flex-col gap-1">
                         <span className="text-2xl font-semibold text-blue-900">
                             Your Cities
@@ -31,7 +28,7 @@ export default function CutuesHeader() {
                     </div>
 
                 </div>
-                <button>
+                <button className="absolute top-0 right-2.5">
                     <span></span>
                     <span>Add City</span>
                 </button>
