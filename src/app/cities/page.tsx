@@ -7,11 +7,7 @@ export default function page() {
     return (
         <div>
             <MainLayout>
-                <ToolBar
-                    title="Cities"
-                    des="Manage and explore your favorite cities"
-                    icon={MapPin}
-                />
+                
                 <CitiesPage/>
             </MainLayout>
 

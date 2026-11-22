@@ -2,7 +2,7 @@ import { Heart } from "lucide-react";
 
 export default function CityCard() {
     return (
-        <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-blue-200/10 p-8 text-center shadow-sm">
+        <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm">
 
             <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-500">
                 <Heart size={30} strokeWidth={1.7} />
