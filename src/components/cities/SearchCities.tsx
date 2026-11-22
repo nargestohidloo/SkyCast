@@ -1,15 +1,15 @@
 
 import { MapPin, Search, Plus } from "lucide-react";
 
-const MyData = ["Tehran", "London", "Tokyo", "Paris", "New York" , "Dubai"];
+const MyData = ["Tehran", "London", "Tokyo", "Paris", "New York", "Dubai"];
 
 export default function SearchCities() {
     return (
-        <div className="flex w-full flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <div className="flex w-full flex-col gap-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm max-lg:gap-4 max-lg:p-4">
 
             <div className="flex items-center gap-3">
-                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500">
-                    <MapPin size={22} strokeWidth={1.8} />
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-50 text-blue-500 max-lg:h-10 max-lg:w-10">
+                    <MapPin className="size-[22px] max-lg:size-5" strokeWidth={1.8} />
                 </div>
 
                 <div className="flex flex-col gap-1">
@@ -22,8 +22,8 @@ export default function SearchCities() {
                 </div>
             </div>
 
-            <div className="flex h-11 w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 transition-colors focus-within:border-blue-400 focus-within:bg-white">
-                <Search size={19} className="shrink-0 text-slate-400" />
+            <div className="flex h-11 w-full items-center gap-3 rounded-xl border border-slate-200 bg-slate-50 px-3 transition-colors focus-within:border-blue-400 focus-within:bg-white max-lg:h-10">
+                <Search className="size-[19px] shrink-0 text-slate-400" />
 
                 <input
                     type="text"
@@ -45,14 +45,13 @@ export default function SearchCities() {
                 <div className="flex flex-wrap gap-2">
                     {MyData.map((val) => {
                         return (
-                            // مهم
                             <button
                                 key={val}
-                                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
+                                className="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600 transition-all hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600 max-lg:px-2.5 max-lg:py-1.5 max-lg:text-xs"
                             >
-                                <MapPin size={15} className="text-blue-400" />
+                                <MapPin className="size-[15px] text-blue-400 max-lg:size-3" />
                                 {val}
-                                <Plus size={14} className="text-slate-400" />
+                                <Plus className="size-[14px] text-slate-400 max-lg:size-3" />
                             </button>
                         );
                     })}
