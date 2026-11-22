@@ -23,11 +23,11 @@ export default function RecentlyCities() {
 
             {/* Empty State */}
             <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center max-lg:gap-2">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 max-lg:h-12 max-lg:w-12">
+                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400 max-lg:h-12 max-lg:w-12 m-2.5">
                     <History className="size-[26px] max-lg:size-5" />
                 </div>
 
-                <h4 className="text-base font-semibold text-slate-700 max-lg:text-sm">
+                <h4 className="text-base font-semibold text-slate-700 max-lg:text-sm ">
                     No recent cities yet
                 </h4>
 
