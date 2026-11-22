@@ -6,7 +6,7 @@ export default function WeatherTip() {
         <div className="flex h-full w-full items-center justify-between gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-r from-blue-50 via-white to-blue-50 px-5 shadow-sm max-lg:gap-2 max-lg:px-3">
 
             {/* Icon */}
-            <div className="flex m-1 h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-500 max-lg:h-10 max-lg:w-10">
+            <div className="flex m-2 h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-100 text-blue-500 max-lg:h-10 max-lg:w-10">
                 <Heart className="size-6 max-lg:size-5 " strokeWidth={1.8} />
             </div>
 
