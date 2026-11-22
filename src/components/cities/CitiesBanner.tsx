@@ -1,5 +1,5 @@
 import Image from "next/image"
-import { MapPin } from "lucide-react";
+import { MapPin , Plus } from "lucide-react";
 export default function CutuesHeader() {
     return (
         <>
@@ -28,9 +28,13 @@ export default function CutuesHeader() {
                     </div>
 
                 </div>
-                <button className="absolute top-0 right-2.5">
-                    <span></span>
+                <button className="absolute top-0 right-2.5 flex justify-center items-center  h-full w-32">
+                   <div className=" w-full h-12 flex justify-center items-center gap-2 bg-blue-500/50 text-white">
+                     <span>
+                        <Plus/>
+                    </span>
                     <span>Add City</span>
+                   </div>
                 </button>
             </div>
 
