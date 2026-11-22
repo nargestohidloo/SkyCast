@@ -18,8 +18,8 @@ export default function CitiesPage() {
                         <CitiyList />
                     </div>
                 </div>
-                <div className="w-[700px] h-full border border-black">
-                    <div className="h-70 border">
+                <div className="w-[700px] h-full">
+                    <div className="h-70 ">
                         <SearchCities />
                     </div>
                     <div></div>
