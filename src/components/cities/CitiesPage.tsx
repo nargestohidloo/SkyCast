@@ -13,7 +13,7 @@ export default function CitiesPage() {
 
     return (
         <>
-            <div className="w-full *:text-black flex min-w-0 space-y-4 max-lg:flex-col max-lg:gap-4 max-lg:space-y-0">
+            <div className="relative w-full *:text-black flex min-w-0 space-y-4 max-lg:flex-col max-lg:gap-4 max-lg:space-y-0">
 
                 <div className="h-full w-full m-2 flex flex-col gap-2 max-lg:m-0 max-lg:w-full">
 
@@ -22,7 +22,7 @@ export default function CitiesPage() {
                             onAddCity={setIsOpen}
                         />
                     </div>
-                    <div>
+                    <div className="border w-[600px] h-[600px] fixed left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 ">
                         {isOpen && <AddCityModal />}
                     </div>
 
