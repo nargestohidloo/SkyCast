@@ -1,12 +1,16 @@
-
-import CutuesHeader from "./CitiesBanner";
+"use client"
+import { useState } from "react";
+import CitiesBanner from "./CitiesBanner";
 import CityCard from "./CityCard";
 import CitiyList from "./CityList";
 import RecentlyCities from "./RecentlyCities";
 import SearchCities from "./SearchCities";
 import WeatherTip from "./WeatherTip";
+import AddCityModal from "./AddCityModal";
 
 export default function CitiesPage() {
+    const [isOpen, setIsOpen] = useState(false)
+
     return (
         <>
             <div className="w-full *:text-black flex min-w-0 space-y-4 max-lg:flex-col max-lg:gap-4 max-lg:space-y-0">
@@ -14,7 +18,12 @@ export default function CitiesPage() {
                 <div className="h-full w-full m-2 flex flex-col gap-2 max-lg:m-0 max-lg:w-full">
 
                     <div className="w-full h-[100px]">
-                        <CutuesHeader />
+                        <CitiesBanner
+                            onAddCity={setIsOpen}
+                        />
+                    </div>
+                    <div>
+                        {isOpen && <AddCityModal />}
                     </div>
 
                     <div>

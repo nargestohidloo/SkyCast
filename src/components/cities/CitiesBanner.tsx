@@ -1,8 +1,9 @@
-
+"use client"
 import Image from "next/image";
 import { MapPin, Plus } from "lucide-react";
+import { CitiesBannerProps } from "./types";
 
-export default function CutuesHeader() {
+export default function CitiesBanner({ onAddCity }: CitiesBannerProps) {
     return (
         <>
             <div className="w-full h-full relative flex overflow-hidden rounded-xl shadow-sm">
@@ -31,7 +32,11 @@ export default function CutuesHeader() {
                     </div>
                 </div>
 
-                <button className="absolute right-6 top-6 z-10 flex h-12 items-center justify-center gap-2 rounded-xl border border-white/40 bg-white/20 px-5 text-sm font-semibold text-white shadow-lg backdrop-blur-md transition-all duration-200 hover:bg-white/35 hover:shadow-xl active:scale-95 max-lg:right-2 max-lg:top-2 max-lg:h-8 max-lg:gap-1 max-lg:rounded-lg max-lg:px-2 max-lg:text-[10px]">
+                <button
+                    className="absolute right-6 top-6 z-10 flex h-12 items-center justify-center gap-2 rounded-xl border border-white/40 bg-white/20 px-5 text-sm font-semibold text-white shadow-lg backdrop-blur-md transition-all duration-200 hover:bg-white/35 hover:shadow-xl active:scale-95 max-lg:right-2 max-lg:top-2 max-lg:h-8 max-lg:gap-1 max-lg:rounded-lg max-lg:px-2 max-lg:text-[10px]"
+                    onClick={() => onAddCity(true)}
+                    // مقدار یوزاستیت تو پیج هم تغییر میکنه
+                >
                     <Plus className="size-[19px] max-lg:size-4" strokeWidth={2} />
                     <span>Add City</span>
                 </button>

@@ -4,8 +4,7 @@ import MainLayout from "@/components/layout/MainLayout";
 export default function page() {
     return (
         <div>
-            <MainLayout>
-                
+            <MainLayout>           
                 <CitiesPage/>
             </MainLayout>
 
