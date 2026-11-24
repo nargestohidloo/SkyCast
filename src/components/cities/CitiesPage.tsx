@@ -56,7 +56,7 @@ export default function CitiesPage() {
 
             </div>
 
-            <div className="h-28 max-lg:w-full mt-2 lg:mt-0">
+            <div className="h-28 lg:ml-2 max-lg:w-full mt-2 lg:mt-0">
                 <WeatherTip />
             </div>
         </>

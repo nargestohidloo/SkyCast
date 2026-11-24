@@ -1,6 +1,4 @@
-
 import { MapPin, Search, Plus } from "lucide-react";
-
 const MyData = ["Tehran", "London", "Tokyo", "Paris", "New York", "Dubai"];
 
 export default function SearchCities() {
