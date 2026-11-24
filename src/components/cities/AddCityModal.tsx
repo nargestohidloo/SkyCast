@@ -1,8 +1,11 @@
-
+"use client"
 import { MapPin, Search } from "lucide-react";
 import { CitiesBannerProps } from "./types";
+import { useState } from "react";
 
 export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
+    const [isData, setData] = useState("")
+
     return (
 
         <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-xl flex flex-col gap-6">
@@ -31,7 +34,8 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
                     id="city"
                     className="w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400"
                     placeholder="Search city name..."
-                />
+                    value={isData}
+                    onChange={(e) => setData(e.target.value)} />
             </div>
 
             <div className="flex justify-end gap-3">

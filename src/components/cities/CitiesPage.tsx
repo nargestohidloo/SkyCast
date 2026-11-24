@@ -24,7 +24,7 @@ export default function CitiesPage() {
                     </div>
                     {isOpen && (
                         <>
-                        {/* فیکسد باعث میشه از اندازه اصلی خارج بشه و نسبت به انداره مرورگر جا بگیره */}
+                            {/* فیکسد باعث میشه از اندازه اصلی خارج بشه و نسبت به انداره مرورگر جا بگیره */}
                             <div className="fixed inset-0 z-998  bg-black/40"></div>
                             <div className="w-[400px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-999 ">
                                 <AddCityModal onAddCity={setIsOpen} />
