@@ -22,9 +22,14 @@ export default function CitiesPage() {
                             onAddCity={setIsOpen}
                         />
                     </div>
-                    <div className="border w-[600px] h-[600px] fixed left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 ">
-                        {isOpen && <AddCityModal />}
-                    </div>
+                    {isOpen && (
+                        <>
+                            <div className="fixed inset-0 z-40 bg-black/40"></div>
+                            <div className="w-[400px] fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+                                <AddCityModal onAddCity={setIsOpen} />
+                            </div>
+                        </>
+                    )}
 
                     <div>
                         <CityCard />
