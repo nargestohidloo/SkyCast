@@ -4,27 +4,37 @@ import { CitiesBannerProps } from "./types";
 import { useEffect, useState } from "react";
 import { searchCities } from "@/services/weather";
 import { City } from "@/types/types";
+import { getWeather } from "@/services/weather";
 
 export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
     const [isData, setData] = useState("")
     const [cities, setCities] = useState<City[]>([]);
+    const [color, setColor] = useState<City | null>(null)
+    const [myData, setMyData] = useState([])
     console.log(cities);
-
 
     useEffect(() => {
         if (isData.length >= 3) {
             searchCities(isData).then((data) => {
                 setCities(data)
             })
-        }
 
+        }
         //  کار نکرد 
         // چون طبق تعریف بالا تو تایپ اسکریپت انتظار داره ورودی بگیره
         // if (isData.length < 3) {
         //     searchCities([])
         // }
-
     }, [isData])
+
+    useEffect(() => {
+        if (!color) return;
+
+
+        getWeather(color.latitude, color.longitude).then((data) => {
+            setMyData(data);
+        });
+    }, [color])
 
     return (
 
@@ -67,7 +77,10 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
                 {cities.map((val) => {
                     return (
                         <div
-                            className="flex items-center gap-3 border-b border-gray-100 px-4 py-3 transition-colors hover:bg-blue-50 cursor-pointer last:border-b-0"
+                            onClick={(() => {
+                                setColor(val)
+                            })}
+                            className={`flex items-center gap-3 border-b border-gray-100 px-4 py-3 transition-colors hover:bg-blue-50 cursor-pointer last:border-b-0 ${color === val && "bg-blue-50"}`}
                             key={val.id}
                         >
                             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-600">
