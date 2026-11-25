@@ -20,8 +20,9 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
 
 
         //  کار نکرد 
+        // چون طبق تعریف بالا تو تایپ اسکریپت انتظار داره ورودی بگیره
         // if (isData.length < 3) {
-        //     searchCities("")
+        //     searchCities([])
         // }
 
     }, [isData])
@@ -56,9 +57,8 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
                     placeholder="Search city name..."
                     value={isData}
                     onChange={(e) => {
-                        const value = e.target.value;
-                        setData(value);
-                        if (value.length < 3) {
+                        setData(e.target.value);
+                        if (e.target.value.length < 3) {
                             setCities([]);
                         }
                     }}
