@@ -101,8 +101,8 @@ export default function CurrentWeather({
     // Loading
     if (!weather || !daily) {
         return (
-            <div className="flex h-full w-full items-center justify-center rounded-[20px] bg-white">
-                <div className="flex flex-col items-center gap-4">
+            <div className="flex h-[380px] lg:h-full w-full items-center justify-center rounded-[20px] bg-white ">
+                <div className="flex  flex-col items-center gap-4">
                     <div className="h-12 w-12 animate-spin rounded-full border-4 border-blue-100 border-t-blue-600" />
                     <p className="text-sm text-slate-500">
                         Loading weather...
