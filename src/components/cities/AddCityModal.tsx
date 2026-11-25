@@ -18,7 +18,6 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
             })
         }
 
-
         //  کار نکرد 
         // چون طبق تعریف بالا تو تایپ اسکریپت انتظار داره ورودی بگیره
         // if (isData.length < 3) {
