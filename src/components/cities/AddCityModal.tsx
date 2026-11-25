@@ -1,10 +1,30 @@
 "use client"
 import { MapPin, Search } from "lucide-react";
 import { CitiesBannerProps } from "./types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { searchCities } from "@/services/weather";
+import { City } from "@/types/types";
 
 export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
     const [isData, setData] = useState("")
+    const [cities, setCities] = useState<City[]>([]);
+    console.log(cities);
+
+
+    useEffect(() => {
+        if (isData.length >= 3) {
+            searchCities(isData).then((data) => {
+                setCities(data)
+            })
+        }
+
+
+        //  کار نکرد 
+        // if (isData.length < 3) {
+        //     searchCities("")
+        // }
+
+    }, [isData])
 
     return (
 
@@ -35,7 +55,37 @@ export default function AddCityModal({ onAddCity }: CitiesBannerProps) {
                     className="w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400"
                     placeholder="Search city name..."
                     value={isData}
-                    onChange={(e) => setData(e.target.value)} />
+                    onChange={(e) => {
+                        const value = e.target.value;
+                        setData(value);
+                        if (value.length < 3) {
+                            setCities([]);
+                        }
+                    }}
+                />
+            </div>
+            <div className="w-full max-h-64 overflow-y-auto rounded-xl border border-gray-100 bg-white shadow-lg shadow-blue-900/5">
+                {cities.map((val) => {
+                    return (
+                        <div
+                            className="flex items-center gap-3 border-b border-gray-100 px-4 py-3 transition-colors hover:bg-blue-50 cursor-pointer last:border-b-0"
+                            key={val.id}
+                        >
+                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                                <MapPin size={18} />
+                            </div>
+
+                            <div className="flex flex-col">
+                                <span className="text-sm font-semibold text-gray-800">
+                                    {val.name}
+                                </span>
+                                <span className="text-xs text-gray-400">
+                                    {val.country}
+                                </span>
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
 
             <div className="flex justify-end gap-3">
